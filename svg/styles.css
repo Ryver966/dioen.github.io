@@ -1,0 +1,395 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #e6eeff;
+    min-height: 200vh;
+}
+
+svg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 400px;
+}
+
+li > a:link {
+    color: white;
+    text-decoration: none;
+}
+
+li > a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+li > a:hover {
+    color: #ADDBFF;
+    text-decoration: none;
+}
+
+li > a:active {
+    color: white;
+    text-decoration: none;
+}
+
+img {
+	max-width: 100%;
+}
+
+.row {
+	margin: 0;
+}
+
+.overFlow {
+	overflow: hidden;
+}
+
+.header-wrapper h1 {
+    position: relative;
+    text-align: center;
+    top: 100px;
+    margin: 0 auto;
+    color: white;
+    font-size: 100px;
+    font-style: italic;
+    font-family: 'Kaushan Script', cursive;
+}
+
+.header-wrapper h1::after {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 600px;
+    height: 3px;
+    background: #fff;
+}
+
+.header-wrapper {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    background: url('http://orig15.deviantart.net/8cd7/f/2012/055/d/3/texture_42_by_xnienke-d4qtsbi.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.header-wrapper::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 19, 191, 0.6);
+}
+
+.nav-wrapper {
+    z-index: 100;
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: #0a64a4;
+    transform: translateX(-300px);
+    display: flex;
+    -webkit-transition: transform 0.5s ease-in;
+    /* Safari */
+    transition: transform 0.5s ease-in;
+}
+
+.stick-to-nav {
+    position: absolute;
+    right: -60px;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    background-color: #0a64a4;
+    border-radius: 0 3px 3px 0;
+    z-index: 100;
+    display: flex;
+}
+
+.hamburger-menu::before {
+    position: absolute;
+    content: '';
+    top: 13px;
+    height: 6px;
+    width: 35px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.hamburger-menu {
+    content: '';
+    margin: auto auto;
+    height: 6px;
+    width: 35px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.hamburger-menu::after {
+    position: absolute;
+    content: '';
+    bottom: 13px;
+    height: 6px;
+    width: 35px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.menu {
+    margin: auto auto;
+}
+
+.menu > ul {
+    list-style: none;
+    color: white;
+    padding: 40px;
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.team-wrapper {
+    width: 100%;
+    background-color: #DDDDDD;
+    text-align: center;
+}
+
+.team-img-wrapper {
+	max-width: 200px;
+	display: inline-block;
+}
+
+.team-wrapper {
+
+}
+
+.team-img-border {
+	border-style: solid;
+	border-width: 5px;
+	border-color: #0a64a4;
+}
+
+.footer-wrapper {
+    height: 300px;
+    width: 100%;
+    background-color: darkgray;
+}
+
+.contact-wrapper {
+    height: 500px;
+    width: 100%;
+    background-color: #e6eef1;
+}
+
+.nav-wrapper:hover {
+    transform: translateX(0);
+}
+
+.we-are {
+    width: 100%;
+    position: relative;
+    top: 100px;
+}
+
+.about-description {
+    text-justify: inter-word;
+    text-align: center;
+}
+
+.about-img-wrapper {
+    background-color: #e6eeff;
+}
+
+.about-description-wrapper {
+    background-color: #fff;
+}
+
+.padding100 {
+    padding: 100px 0;
+}
+
+.team-image {
+    top: 260px;
+}
+
+.team-image img {
+    width: 100%;
+}
+
+.full-size {
+    width: 100%;
+    height: 100%;
+}
+
+.person {
+	margin-top: 100px;
+}
+
+.product-img {
+	padding: 0 !important;
+	margin: 0 !important;
+	transition: opacity 1s ease-in-out;
+}
+
+.product-img:hover > div > img{
+	transform: scale(1.2);
+	transition: transform 0.5s;
+}
+
+.product-img img {
+	width: 100%;
+	height: 100%;
+}
+
+.product-img:hover > .product-hover {
+	position: absolute;
+	top: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	background-color: rgba(0, 100, 255, 0.6);
+	transition: opacity 0.5s;
+} 
+
+.product-hover {
+	opacity: 0;
+	display: block;	
+	height: 0;
+	margin: 0;
+	padding: 0;
+}
+
+a.product-p-description {
+    position: absolute;
+    display: block;
+    width: 113px;
+    height: 40px;
+    top: calc(50% - 20px);
+    bottom: 50%;
+    left: calc(50% - 56px);
+    right: 50%;
+    color: #fff;
+    border-style: solid;
+    border-width: 3px;
+    font-size: 30px;
+    line-height: 35px;
+}
+
+a.product-p-description:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+.products-img-wrapper {
+	max-width: 500px;
+	bottom: -15px;
+    position: relative;
+    margin-left: 10px;
+}
+
+.h1-title-done {
+	transform: translateY(121px);
+}
+
+.products {
+	padding: 30px 0;
+    width: 100%;
+    background-color: silver;
+    /* overflow: hidden; */
+}
+
+h1.h1-title {
+	font-size: 100px;
+	/* font-family: 'Roboto', sans-serif; */
+	font-family: 'Courgette', cursive;
+	color: #193245;
+}
+
+.h1-title-absolute {
+	position: absolute;
+	float: right;
+}
+
+.floatRight {
+	float: right;
+}
+
+.floatRight:after {
+	clear: right;
+}
+
+.clearRight {
+	clear: right;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.clearLeft {
+	clear: left;
+}
+
+p.p-title {
+	font-family: 'Raleway', sans-serif;
+	font-size: 15px;
+}
+/* 
+.stick-to-nav > div {
+	margin: auto auto;
+} */
+
+@media only screen and (max-width: 1200px) {
+    .team-image {
+        top: 330px;
+    }
+
+    .h1-title-done {
+    	transform: translateY(0);
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .lg-hide {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .team-image {
+        top: 100px;
+    }
+    .nav-wrapper {
+        z-index: 100;
+        width: 200px;
+        transform: translateX(-200px);
+        -webkit-transition: transform 0.5s ease-in;
+        /* Safari */
+        transition: transform 0.5s ease-in;
+    }
+    .header-wrapper h1 {
+        font-size: 40px;
+    }
+    .header-wrapper h1::after {
+        width: 250px;
+    }
+    .md-hide {
+        display: none;
+    }
+    svg {
+        height: 200px;
+    }
+    .header-wrapper {
+        height: 400px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .team-image {
+        top: 45px;
+    }
+    .we-are {
+    	top: 75px;
+    }
+}
