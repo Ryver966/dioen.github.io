@@ -1,0 +1,173 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    color: white;
+}
+
+li {
+    list-style: none;
+    color: #fff;
+}
+
+img {
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+    height: 100%;
+}
+
+p {
+    color: #fff;
+}
+
+.colorWhite {
+    color: #fff;
+}
+
+.pageContainer {
+    background-color: #000000;
+}
+
+.noPadding {
+    padding: 0 !important;
+}
+
+.noMargin {
+    margin: 0 !important;
+}
+
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+.topOffset60 {
+    margin-top: 60px;
+}
+
+.topOffset30 {
+    margin-top: 30px;
+}
+
+.widePadding {
+    padding: 0 30px;
+}
+
+.navContainer {
+    width: 150px;
+    position: relative;
+}
+
+.relative {
+    position: relative;
+}
+
+.test {
+    background-color: #FFF333;
+    min-height: 50px;
+    max-height: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.test1 {
+    background-color: #F36C12;
+    height: 100px;
+    min-height: 50px;
+    max-height: 100px;
+    position: relative;
+}
+
+.test2 {
+    background-color: #12BBF3;
+    height: 100px;
+    min-height: 50px;
+    max-height: 100px;
+    position: relative;
+}
+
+.container-fluid {
+    padding: 0 !important;
+}
+
+.opacityBackground3 {
+    background-color: rgba(255, 153, 0, 0.7);
+    background: rgba(255, 153, 0, 0.7);
+    color: rgba(255, 153, 0, 0.7);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    transform: translateY(-100%);
+}
+
+.opacityBackground1 {
+    background-color: rgba(191, 191, 191, 0.7);
+    background: rgba(191, 191, 191, 0.7);
+    color: rgba(191, 191, 191, 0.7);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    transform: translateY(-100%);
+}
+
+.opacityBackground2 {
+    background-color: rgba(255, 102, 0, 0.7);
+    background: rgba(255, 102, 0, 0.7);
+    color: rgba(255, 102, 0, 0.7);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    transform: translateY(-100%);
+}
+
+.floatRight {
+    float: right !important;
+}
+
+.overflowHidden {
+    overflow: hidden;
+}
+
+.rollOut {
+    -webkit-animation: wrapOpacityBackground 0.5s forwards;
+}
+
+.rollIn {
+    -webkit-animation: rollInOpacityBackground 0.5s forwards;
+}
+
+@-webkit-keyframes wrapOpacityBackground {
+    from {
+        left: 0;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes rollInOpacityBackground {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+.description {
+    padding: 30% 0;
+}
+
+.textCentered {
+    text-align: center;
+}
+
+@media only screen and (max-width: 991px) {}
+
+@media only screen and (min-width: 992px) {}
