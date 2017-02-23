@@ -1,8 +1,6 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: #e6eeff;
-    min-height: 200vh;
 }
 
 svg {
@@ -42,6 +40,20 @@ img {
 
 .overFlow {
 	overflow: hidden;
+}
+
+.colorWhite {
+	color: #fff;
+}
+
+.person-name {
+	color: #fff;
+}
+
+p.p-title {
+	font-family: 'Raleway', sans-serif;
+	font-size: 15px;
+	color: #fff;
 }
 
 .header-wrapper h1 {
@@ -150,7 +162,7 @@ img {
 
 .team-wrapper {
     width: 100%;
-    background-color: #DDDDDD;
+    background-color: #000074;
     text-align: center;
 }
 
@@ -159,14 +171,10 @@ img {
 	display: inline-block;
 }
 
-.team-wrapper {
-
-}
-
 .team-img-border {
 	border-style: solid;
 	border-width: 5px;
-	border-color: #0a64a4;
+	border-color: #fff;
 }
 
 .footer-wrapper {
@@ -197,7 +205,7 @@ img {
 }
 
 .about-img-wrapper {
-    background-color: #e6eeff;
+    background-color: #ADDBFF;
 }
 
 .about-description-wrapper {
@@ -235,11 +243,6 @@ img {
 	transform: scale(1.2);
 	transition: transform 0.5s;
 }
-
-/* .product-img img {
-	width: 100%;
-	height: 100%;
-} */
 
 .product-img:hover > .product-hover {
 	position: absolute;
@@ -295,15 +298,12 @@ a.product-p-description:hover {
 .products {
 	padding: 30px 0;
     width: 100%;
-    /* background-color: silver; */
-    /* overflow: hidden; */
 }
 
 h1.h1-title {
 	font-size: 100px;
-	/* font-family: 'Roboto', sans-serif; */
 	font-family: 'Courgette', cursive;
-	color: #193245;
+	/* color: #3e6684; */
 }
 
 .h1-title-absolute {
@@ -330,15 +330,6 @@ h1.h1-title {
 .clearLeft {
 	clear: left;
 }
-
-p.p-title {
-	font-family: 'Raleway', sans-serif;
-	font-size: 15px;
-}
-/* 
-.stick-to-nav > div {
-	margin: auto auto;
-} */
 
 @media only screen and (max-width: 1200px) {
     .team-image {
