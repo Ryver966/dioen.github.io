@@ -1,0 +1,60 @@
+{
+	"data": {
+		"motivators": [{
+			"title": "Calisthenics - samodyscyplina!",
+			"src": "https://www.youtube.com/embed/WKEgHKOvYTE"
+		}, {
+			"title": "Bądź ślepy, patrz oczami wyobraźni",
+			"src": "https://www.youtube.com/embed/oZkTH4XolyQ"
+		}, {
+			"title": "Żyj, jak inni nie potrafią. Bez wymówek.",
+			"src": "https://www.youtube.com/embed/zh8NkyAsEVM"
+		}, {
+			"title": "Jest tylko \"Krok pierwszy\"",
+			"src": "https://www.youtube.com/embed/LXM_tGHcuMo"
+		}],
+		"projects": [{
+			"title": "Pierwsza strona - nauka/motywacja",
+			"description": "Strona została stworzona z myślą o nauce, portfolio, a także jako motywacja do treningów. Kolejnym krokiem na ścieżce nauki będzie HTML5 i CSS3, oczywiście nie pomijając starszych wersji wymienionych technologii.Wszelkie uwagi, każda merytoryczna krytyka jest mile widziana.",
+			"technologies": ["JavaScript", "CSS3", "HTML5"],
+			"gitLink": "",
+			"imgSrc": "sources/images/projects_images/4a6b6cad98.png",
+			"link": ""
+		}, {
+			"title": "Gorkan - firmowa strona wizytówka",
+			"description": "",
+			"technologies": ["JavaScript", "CSS3", "HTML5", "Bootstrap"],
+			"gitLink": "",
+			"imgSrc": "sources/images/projects_images/gorkan_preview.png",
+			"link": "/gorkan"
+		}, {
+			"title": "Galeria V2",
+			"description": "",
+			"technologies": ["JavaScript", "CSS3", "HTML5", "Bootstrap"],
+			"gitLink": "",
+			"imgSrc": "sources/images/projects_images/galeria.png",
+			"link": "/galeria2"
+		}, {
+			"title": "Lista",
+			"description": "",
+			"technologies": ["JavaScript", "CSS3", "HTML5", "Bootstrap"],
+			"gitLink": "",
+			"imgSrc": "sources/images/projects_images/mylist.png",
+			"link": "/my-list"
+		}
+	],
+		"news": [{
+			"title": "Pierwszy projekt",
+			"description": "Pierwszy projekt zrealizowany głównie w JavaScript z użyciem CSS3 i minimalną ilością HTML.",
+			"technologies": ["HTML5", "JavaScript", "CSS3"],
+			"gitLink": "http://www.onet.pl/",
+			"imgSrc": "sources/images/27703-200.png"
+		}, {
+			"title": "Pierwsza strona motywacyjna",
+			"description": "Motywacja to podstawa sukcesu w każdej dziedzinie życia. W moim przypadku potrzebna mi jest głównie do mojej podrózy przez siłownię...",
+			"technologies": ["HTML5", "JavaScript", "CSS3"],
+			"gitLink": "http://www.onet.pl/",
+			"imgSrc": "sources/images/exercise-strengthen-icon-4.png"
+		}]
+	}
+}
