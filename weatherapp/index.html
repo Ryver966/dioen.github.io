@@ -103,7 +103,7 @@
             });
         }
 
-        var getData = () => {
+        var getData = function() {
             return getUserLocation()
                 .then(function (position) {
                     // console.log("http://localhost:3000/position/" + position.coords.latitude + "/" + position.coords.longitude);
@@ -118,7 +118,7 @@
 
                             // "http://api.openweathermap.org/data/2.5/weather?lat=53.120&lon=20&appid=0b7fd9db30a266c2f9f08ec309d802c3"
                         )
-                        .then((data) => {
+                        .then(function(data) {
                             return data.json();
                         }).then(function (data) {
                             console.log(data)
