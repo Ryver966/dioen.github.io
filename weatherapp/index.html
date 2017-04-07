@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="Living Weather APP">
+    <meta name="author" content="SitePoint">
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/fontello.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster&amp;subset=latin-ext" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <div id="container">
+        <div id="stars-container"></div>
+        <div class="sun-container">
+            <div id="sun"></div>
+        </div>
+        <div class="moon-container"><img src="sources/images/assets_moon.png" alt=""></div>
+        <div id="cloudsLayer"></div>
+        <div id="hills">
+            <img src="https://img.clipartfest.com/22beb438ba623c32006d55c798575873_green-hills-mountain-range-green-hill-clipart_5000-2616.png"
+                alt="">
+        </div>
+        <div class="footer">
+            <p id="temperature"></p>
+            <div id="windmill">
+                <img src="sources/images/windmill.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div id="details-container" class="container inactive">
+        <div class="details-weather col-sm-8">
+            <div class="flex-wrapper">
+                <div class="dw-temperature-container flex-elem">
+                    <i class="icon-temperatire"></i>
+                    <p>Temperature:</p>
+                    <p id="current-temp"></p>
+                    <p id="temp-max"></p>
+                    <p id="temp-min"></p>
+                </div>
+                <div class="dw-sun-container flex-elem">
+                    <i class="icon-sun"></i>
+                    <p>Sun:</p>
+                    <p id="sun-rise"></p>
+                    <p id="sun-set"></p>
+                </div>
+                <div class="dw-wind-container flex-elem">
+                    <i class="icon-wind"></i>
+                    <p>Wind:</p>
+                    <p id="current-wind"></p>
+                    <p id="wind-degrees"></p>
+                </div>
+                <div class="dw-clouds-container flex-elem">
+                    <i class="icon-cloud"></i>
+                    <p>Clouds:</p>
+                    <p id="current-clouds"></p>
+                </div>
+                <div class="dw-prassure-container flex-elem">
+                    <i class="icon-compass"></i>
+                    <p>Pressure:</p>
+                    <p id="current-pressure"></p>
+                </div>
+                <div class="dw-humidity-container flex-elem">
+                    <i class="icon-rain"></i>
+                    <p>Humidity:</p>
+                    <p id="current-humidity"></p>
+                </div>
+            </div>
+        </div>
+        <div class="main-weather col-sm-4">
+            <p id="city-header" class="title"></p>
+            <div class="main-description">
+                <i class="icon-cloud col-sm-4"></i>
+                <p id="clouds-header" class="col-sm-8"></p>
+                <i class="icon-temperatire col-sm-4"></i>
+                <p id="temperature-header" class="col-sm-8"></p>
+            </div>
+        </div>
+    </div>
+    <div id="show-hide-details-button">
+        <p>Show Details</p>
+    </div>
+    <script>
+        var appStart = true;
+        var cloudsLayer = document.getElementById("cloudsLayer");
+
+        var getUserLocation = function () {
+            return new Promise(function (resolve) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    resolve(position);
+                }, function () {
+                    alert("Application won't work with no geolocation enabled!");
+                });
+            });
+        }
+
+        var getData = () => {
+            return getUserLocation()
+                .then(function (position) {
+                    // console.log("http://localhost:3000/position/" + position.coords.latitude + "/" + position.coords.longitude);
+                    return fetch(
+
+                            "https://weatherapp.cloudno.de/position/" + position.coords.latitude + "/" +
+                            position.coords.longitude
+
+                            // "http://api.openweathermap.org/data/2.5/weather?lat=" + position.coords.latitude +
+                            // "&lon=" +
+                            // position.coords.longitude + "&appid=0b7fd9db30a266c2f9f08ec309d802c3"
+
+                            // "http://api.openweathermap.org/data/2.5/weather?lat=53.120&lon=20&appid=0b7fd9db30a266c2f9f08ec309d802c3"
+                        )
+                        .then((data) => {
+                            return data.json();
+                        }).then(function (data) {
+                            console.log(data)
+                            return data;
+                        });
+                });
+        }
+
+        window.requestAnimFrame1 = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+
+        var requestAnimFrame = function (arg) {
+            window.requestAnimFrame1(arg);
+        }
+
+        var oneCloudGenerator = function (weatherElements, topValue, leftValue, weatherObject) {
+            var cloudDiv = document.createElement("div"),
+                cloudImg = document.createElement("img"),
+                randValue = (Math.floor((Math.random() * 6) + 5)) / 10,
+                percentWindowWidth = window.innerWidth / 100,
+                speed = (weatherObject.wind.speed / 20) * randValue,
+                height = 278 * randValue,
+                width = 500 * randValue,
+                zindex = randValue * 10;
+
+            cloudImg.src = weatherElements.cloud;
+            cloudDiv.className = "cloud";
+            cloudDiv.style.width = width + "px";
+            cloudDiv.style.height = height + "px";
+            cloudDiv.style.top = topValue + "%";
+            cloudDiv.style.zIndex = zindex;
+
+            cloudDiv.widthForOther = width;
+            cloudDiv.heightForOther = height;
+            cloudDiv.scaleForOther = randValue;
+            cloudDiv.zindexForOther = zindex;
+            cloudDiv.topForOther = topValue;
+
+            cloudDiv.appendChild(cloudImg);
+
+            if (leftValue > -1) {
+                cloudDiv.style.left = (leftValue * percentWindowWidth) + "px";
+            } else {
+                cloudDiv.style.left = leftValue + "px";
+            }
+
+            cloudDiv.animate = function (cloudSpeed) {
+                cloudDiv.style.left = (parseFloat(cloudDiv.style.left) + cloudSpeed) + "px";
+                if ((parseInt(cloudDiv.style.left) - 70) > window.innerWidth) { // left value -100 becouse container in CSS file has width 100% + 200px
+                    cloudsLayer.removeChild(cloudDiv);
+                    setTimeout(function () {
+                        generateClouds(weatherElements, weatherObject);
+                    }, Math.floor((Math.random() * 120000 / weatherObject.wind.speed + 1) + (20000 /
+                        weatherObject.wind.speed + 0.1))); // faster wind speed, faster cloud move, less random generate time
+                } else {
+                    requestAnimFrame(function () {
+                        cloudDiv.animate(cloudSpeed);
+                    });
+                }
+            }
+
+            requestAnimFrame(function () {
+                cloudDiv.animate(speed);
+            });
+
+            return cloudDiv;
+        }
+
+        var generateTo100Value = function () {
+            return Math.floor(Math.random() * 100);
+        }
+
+        var generateClouds = function (weatherElements, weatherObject) {
+            console.log(appStart + " APP START")
+            var cloud;
+            if (appStart == false) {
+                cloud = oneCloudGenerator(weatherElements, Math.floor(Math.random() * 100), -334, weatherObject);
+                cloudsLayer.appendChild(cloud);
+            } else {
+                var cloudness = parseInt(weatherObject.clouds.all / 10);
+
+                for (var i = 0; i < cloudness; i++) {
+                    cloud = oneCloudGenerator(weatherElements, Math.floor(Math.random() * 100), Math.floor(Math.random() *
+                        80), weatherObject);
+                    cloudsLayer.appendChild(cloud);
+                }
+            }
+        }
+
+        var generateDrop = function (dropType, weatherElements) {
+            var drop = document.createElement("img");
+
+            var cloudsElements = document.getElementsByClassName("cloud"),
+                randomCloudFromArray = cloudsElements[Math.floor(Math.random() * cloudsElements.length)],
+                dropSpeed = 0,
+                width = 25,
+                height = 46,
+                randomCloudWidth = randomCloudFromArray.widthForOther * (Math.floor((Math.random() * 81) + 20) /
+                    100);
+
+            if (dropType == "rain") {
+                drop.src = weatherElements.rainDrop;
+                dropSpeed = randomCloudFromArray.scaleForOther * 10;
+                drop.className = "rain-drop";
+            } else if (dropType == "snow") {
+                drop.src = weatherElements.snowDrop;
+                dropSpeed = randomCloudFromArray.scaleForOther * 3;
+                drop.className = "snow-drop";
+            }
+
+            if (randomCloudFromArray != undefined) {
+                drop.style.left = parseInt(randomCloudFromArray.style.left) + randomCloudWidth + "px";
+            }
+
+            drop.style.top = randomCloudFromArray.topForOther + "%";
+            drop.style.top = parseInt(drop.style.top) + randomCloudFromArray.heightForOther + "px";
+            drop.style.width = (width * randomCloudFromArray.scaleForOther) + "px";
+            drop.style.height = (height * randomCloudFromArray.scaleForOther) + "px";
+            drop.style.zIndex = randomCloudFromArray.zindexForOther - 1;
+
+
+            drop.animate = function (speed) {
+                drop.style.top = parseInt(drop.style.top) + speed + "px";
+
+                if (parseInt(drop.style.top) > parseInt(window.innerHeight)) {
+                    cloudsLayer.removeChild(drop);
+                } else {
+                    requestAnimFrame(function () {
+                        drop.animate(speed);
+                    });
+                }
+            }
+            cloudsLayer.appendChild(drop);
+            requestAnimFrame(function () {
+                drop.animate(dropSpeed);
+            });
+        }
+
+        var weatherFactory = function (weatherElement) {
+            var weatherElements = {};
+
+            weatherElements.rainDrop = "sources/images/assets_rain.png";
+            weatherElements.snowDrop = "sources/images/assets_snowflake.png";
+            weatherElements.thunderLighting = "sources/images/assets_thunderbolt.png";
+
+            switch (weatherElement) {
+                case "mist":
+                    weatherElements.cloud = "sources/images/assets_cloud_stormy.png";
+                    weatherElements.sky = "#aaa";
+                    weatherElements.sky = "#81e8ff";
+
+                    return weatherElements;
+                case "clear sky":
+                    weatherElements.cloud = "sources/images/assets_cloud_normal.png";
+                    weatherElements.sky = "#81e8ff";
+
+                    return weatherElements;
+                case "few clouds":
+                    weatherElements.cloud = "sources/images/assets_cloud_normal.png";
+                    weatherElements.sky = "#81e8ff";
+
+                    return weatherElements;
+                case "scattered clouds":
+                    weatherElements.cloud = "sources/images/assets_cloud_normal.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+                case "broken clouds":
+                    weatherElements.cloud = "sources/images/assets_cloud_normal.png";
+                    weatherElements.sky = "#81e8ff";
+
+                    return weatherElements;
+                case "shower rain":
+                    weatherElements.cloud = "sources/images/assets_cloud_stormy.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+                case "rain":
+                    weatherElements.cloud = "sources/images/assets_cloud_stormy.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+                case "light rain":
+                    weatherElements.cloud = "sources/images/assets_cloud_stormy.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+                case "thunderstorm":
+                    weatherElements.cloud = "sources/images/assets_cloud_stormy.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+                case "light intensity shower rain":
+                    weatherElements.cloud = "sources/images/assets_cloud_stormy.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+                case "overcast clouds":
+                    weatherElements.cloud = "sources/images/assets_cloud_stormy.png";
+                    weatherElements.sky = "#81e8ff";
+
+                    return weatherElements;
+                case "moderate rain":
+                    weatherElements.cloud = "sources/images/assets_cloud_normal.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+                case "shower sleet":
+                    weatherElements.cloud = "sources/images/assets_cloud_normal.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+
+                case "light rain and snow":
+                    weatherElements.cloud = "sources/images/assets_cloud_stormy.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+
+                case "light intensity drizzle":
+                    weatherElements.cloud = "sources/images/assets_cloud_stormy.png";
+                    weatherElements.sky = "#aaa";
+
+                    return weatherElements;
+
+                default:
+                    alert(
+                        "We do not provide this kind of weather, sorry! Please check console for more information."
+                    );
+                    break;
+            }
+        }
+
+        var returnWeatherType = function (weatherDescription, weatherObject) {
+            console.log(weatherDescription)
+            console.log(weatherObject.clouds.all)
+            console.log(weatherObject.wind.speed);
+
+            var weatherElements = weatherFactory(weatherDescription);
+
+            return weatherElements;
+        }
+
+        var setSunInHead = function (sunRiseTime, sunSetTime, currentUserTime) {
+            var increase = 0,
+                counter = 0,
+                sun = document.getElementById("sun"),
+                diffTime = sunSetTime - sunRiseTime,
+                currentUserTimePercentage = ((currentUserTime - sunRiseTime) / diffTime);
+
+            (currentUserTimePercentage > 0.5) ? increase = Math.sin(Math.PI * (0.5 + (0.5 -
+                currentUserTimePercentage))): increase = Math.sin(Math.PI *
+                currentUserTimePercentage);
+            counter += increase;
+            sun.style.bottom = counter * 70 + "%";
+            sun.style.left = currentUserTimePercentage * 100 + "%";
+        }
+
+        var generateNightStars = function () {
+            var starsContainer = document.getElementById("stars-container"),
+                counter = 0;
+
+            var starsInterval = setInterval(function () {
+                var starDiv = document.createElement("div"),
+                    starImg = document.createElement("img"),
+                    sizeScale = (Math.floor(Math.random() * 80) + 60) / 100;
+
+                starImg.src = "sources/images/assets_star.png";
+                starDiv.setAttribute("class", "star");
+                starDiv.style.top = generateTo100Value() + "vh";
+                starDiv.style.left = generateTo100Value() + "vw";
+                starDiv.style.width = (30 * sizeScale) + "px";
+                starDiv.style.height = (30 * sizeScale) + "px";
+                starDiv.appendChild(starImg);
+                starsContainer.appendChild(starDiv);
+
+                counter++;
+                if (counter > 40) {
+                    clearInterval(starsInterval);
+                }
+            }, 100);
+        }
+
+        var generateThunderLighting = function (weatherElements) {
+            var cloudsElements = document.getElementsByClassName("cloud"),
+                randomCloud = cloudsElements[Math.floor(Math.random() * cloudsElements.length)],
+                thunderLighting = document.createElement("img"),
+                cloudsLayerPrivate = document.getElementById("cloudsLayer"),
+                randomLeftPosition = (Math.floor(Math.random() * 2) + 1);
+
+            if (randomLeftPosition == 1) {
+                thunderLighting.style.left = 10 + "%";
+            } else {
+                thunderLighting.style.left = 90 + "%";
+            }
+
+            thunderLighting.className = "thunder-lighting";
+            thunderLighting.src = weatherElements.thunderLighting;
+            thunderLighting.style.top = 50 + "px";
+
+            cloudsLayerPrivate.appendChild(thunderLighting);
+            document.body.setAttribute("class", "light");
+
+            var thunderTimeout = setTimeout(function () {
+                cloudsLayerPrivate.removeChild(thunderLighting);
+                document.body.removeAttribute("class");
+            }, 500);
+        }
+
+        var windMillRotate = function (windSpeed) {
+            var windMillElement = document.getElementById("windmill"),
+                rotate = 0;
+
+            windMillElement.animate = function (windSpeed) {
+                rotate += windSpeed / 10;
+                windMillElement.style.transform = "rotate(" + rotate + "deg)";
+
+                requestAnimFrame(function () {
+                    windMillElement.animate(windSpeed);
+                });
+            }
+            windMillElement.animate(windSpeed);
+        }
+
+        var fillDetails = function (weatherObj) {
+            var cityHeaderElement = document.getElementById("city-header"),
+                cloudsHeaderElement = document.getElementById("clouds-header"),
+                temperatureHeaderElement = document.getElementById("temperature-header"),
+                currentTempElement = document.getElementById("current-temp"),
+                tempMaxElement = document.getElementById("temp-max"),
+                tempMinElement = document.getElementById("temp-min"),
+                currentPressureElement = document.getElementById("current-pressure"),
+                currentHumidityElement = document.getElementById("current-humidity"),
+                currentWindElement = document.getElementById("current-wind"),
+                windDegreesElement = document.getElementById("wind-degrees"),
+                currentCloudsElement = document.getElementById("current-clouds"),
+                sunRiseElement = document.getElementById("sun-rise"),
+                sunSetElement = document.getElementById("sun-set"),
+                sunRiseTime = new Date(weatherObj.sys.sunrise * 1000),
+            sunSetTime = new Date(weatherObj.sys.sunset * 1000);
+
+
+
+
+            cityHeaderElement.innerHTML = weatherObj.name;
+            cloudsHeaderElement.innerHTML = weatherObj.weather[0].main;
+            temperatureHeaderElement.innerHTML = Math.floor(weatherObj.main.temp - 273.15) + "&#8451;";
+            currentTempElement.innerHTML = "current: " + Math.floor(weatherObj.main.temp - 273.15) + "&#8451;";
+            tempMaxElement.innerHTML = "max: " + Math.floor(weatherObj.main.temp_max - 273.15) + "&#8451;";
+            tempMinElement.innerHTML = "min: " + Math.floor(weatherObj.main.temp_min - 273.15) + "&#8451;";
+            currentPressureElement.innerHTML = weatherObj.main.pressure + " hPa";
+            currentHumidityElement.innerHTML = weatherObj.main.humidity + " %";
+            currentWindElement.innerHTML = weatherObj.wind.speed + " m/s";
+            currentWindElement.innerHTML = weatherObj.wind.speed + " m/s";
+            (weatherObj.wind.deg !== undefined) ? windDegreesElement.innerHTML = weatherObj.wind.deg + " deg":
+                windDegreesElement.innerHTML = "";
+            currentCloudsElement.innerHTML = weatherObj.clouds.all + " %";
+            sunRiseElement.innerHTML = "rise: " + sunRiseTime.getHours() + ":" + sunRiseTime.getMinutes() + ":" +
+                sunRiseTime.getSeconds();
+            sunSetElement.innerHTML = "set: " + sunSetTime.getHours() + ":" + sunSetTime.getMinutes() + ":" +
+                sunSetTime.getSeconds();
+        }
+
+        window.onblur = function () {
+            window.blurred = true;
+        };
+        window.onfocus = function () {
+            window.blurred = false;
+        };
+
+        var weatherController = function (weatherObject) {
+            var sunRiseTime = weatherObject.sys.sunrise * 1000,
+                sunSetTime = weatherObject.sys.sunset * 1000,
+                date = new Date(),
+                currentUserTime = date.getTime(),
+                starsContainer = document.getElementById("stars-container"),
+                sunElement = document.getElementById("sun"),
+                moonElement = document.getElementsByClassName("moon-container")[0],
+                sunImg = document.createElement("img"),
+                appContainer = document.getElementById("container"),
+                temperatureElement = document.getElementById("temperature"),
+                weatherElements = returnWeatherType(weatherObject.weather[0].description, weatherObject),
+                weatherDescription = weatherObject.weather[0].description;
+
+            sunImg.src = "sources/images/assets_sun.png";
+            sunElement.appendChild(sunImg);
+
+            generateClouds(weatherElements, weatherObject);
+            appStart = false;
+
+            console.log(weatherObject);
+
+            fillDetails(weatherObject);
+            temperatureElement.innerHTML = Math.floor(weatherObject.main.temp - 273.15) + "&#8451;";
+            windMillRotate(weatherObject.wind.speed);
+
+            if (currentUserTime > sunRiseTime && currentUserTime <
+                sunSetTime) {
+                setSunInHead(sunRiseTime, sunSetTime, currentUserTime);
+                sunElement.style.visibility = "visible";
+                appContainer.style.background = weatherElements.sky;
+                moonElement.style.visibility = "hidden";
+
+                if (starsContainer.hasChildNodes()) {
+                    starsContainer.innerHTML = "";
+                }
+            } else {
+                sunElement.style.visibility = "hidden";
+                appContainer.style.background = "#003366";
+                moonElement.style.visibility = "visible";
+
+                if (!starsContainer.hasChildNodes()) {
+                    generateNightStars();
+                }
+            }
+
+            var sunSkyInterval = setInterval(function () {
+                var datePrivate = new Date(),
+                    currentUserTimePrivate = datePrivate.getTime(),
+                    starsContainerPrivate = document.getElementById("stars-container");
+
+                if (currentUserTimePrivate > sunRiseTime && currentUserTimePrivate <
+                    sunSetTime) {
+                    setSunInHead(sunRiseTime, sunSetTime, currentUserTimePrivate);
+                    sunElement.style.visibility = "visible";
+                    appContainer.style.background = weatherElements.sky;
+                    moonElement.style.visibility = "hidden";
+
+                    if (starsContainerPrivate.hasChildNodes()) {
+                        starsContainerPrivate.innerHTML = "";
+                    }
+                } else {
+                    sunElement.style.visibility = "hidden";
+                    appContainer.style.background = "#003366";
+                    moonElement.style.visibility = "visible";
+
+                    if (!starsContainerPrivate.hasChildNodes()) {
+                        generateNightStars();
+                    }
+                }
+            }, 10000);
+
+            if (weatherDescription.indexOf("thunder") > -1) {
+                var thunderLightLoop = function () {
+                    var random = Math.floor(Math.random() * 3000) + 1000;
+                    var lightingTimeout = setTimeout(function () {
+                        if (!window.blurred) {
+                            generateThunderLighting(weatherElements);
+                        }
+                        thunderLightLoop();
+                    }, random);
+                }
+                thunderLightLoop();
+            }
+
+            if (weatherDescription.indexOf("rain") > -1 || weatherDescription.indexOf("drizzle") > -1) {
+                var rainLoop = function () {
+                    var random = Math.floor(Math.random() * 400) + 100,
+                        rainTimeout = setTimeout(function () {
+                            if (!window.blurred) {
+                                generateDrop("rain", weatherElements);
+                            }
+                            rainLoop();
+                            console.log("RAINY")
+                        }, random);
+                }
+                rainLoop();
+            }
+
+            if (weatherDescription.indexOf("snow") > -1) {
+                var snowLoop = function () {
+                    var random = Math.floor(Math.random() * 300) + 100,
+                        snowTimeout = setTimeout(function () {
+                            if (!window.blurred) {
+                                generateDrop("snow", weatherElements);
+                            }
+                            snowLoop();
+                        }, random);
+                }
+                snowLoop();
+            }
+
+            var weatherTypeInterval = setInterval(function () {
+                weatherElements = returnWeatherType(weatherObject.weather[0].description, weatherObject);
+            }, 3600000);
+        }
+
+        var initApp = function () {
+            getData()
+                .then(function (data) {
+                    weatherController(data);
+                });
+
+        }
+
+        var showHideDetails = function () {
+            var detailsElement = document.getElementById("details-container"),
+                showHideButton = document.getElementById("show-hide-details-button");
+
+            if (detailsElement.className.indexOf("inactive") > -1) {
+                detailsElement.className = detailsElement.className.replace(" inactive", " active");
+                showHideButton.firstElementChild.innerHTML = "Hide Details";
+            } else {
+                detailsElement.className = detailsElement.className.replace(" active", " inactive");
+                showHideButton.firstElementChild.innerHTML = "Show Details";
+            }
+        }
+
+        document.getElementById("show-hide-details-button").addEventListener("click", showHideDetails);
+
+        initApp();
+    </script>
+</body>
+
+</html>
