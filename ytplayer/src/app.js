@@ -3,8 +3,8 @@ import angular from 'angular';
 import YTService from './service';
 import OAuthService from './OAuthService/app.auth';
 import Factory from './factory/app.factory';
-import routes from './routes';
-import ui from 'angular-ui-router';
+// import routes from './routes';
+// import ui from 'angular-ui-router';
 
 import loginComponent from './login/app.login';
 import searchComponent from './search/app.search';
@@ -14,7 +14,7 @@ import relatedComponent from './relatedToActualVideo/app.related';
 import playComponent from './mainPlayer/playerStartPause/app.player.start.stop';
 import css from './css/style.css';
 
-let app = angular.module("myApp", ['ui.router'])
+let app = angular.module("myApp", [])
     .service("YTService", YTService)
     .service("OAuthService", OAuthService)
     // .config(routes)
