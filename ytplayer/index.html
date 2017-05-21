@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>just better YouTube Player...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" href="style.css">-->
+    <script src="https://apis.google.com/js/client.js"></script>
+    <meta name="google-signin-client_id" content="700879300276-4jsvtpkq9r9ms7pkcj5imb5e87t9c6ep.apps.googleusercontent.com">
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <link rel="stylesheet" href="src/css/fontello.css">
+</head>
+
+<body>
+    <div ng-app="myApp">
+        <search></search>
+        <view></view>
+        <div id="side-nav-id" class="side-nav">
+            <related-component></related-component>
+        </div>
+        <actual-video></actual-video>
+        <player></player>
+        <login></login>
+    </div>
+
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <script src="dist/app.bundle.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('mobile-menu').addEventListener('click', function () {
+                var sideNav = document.getElementById('side-nav-id');
+                (sideNav.className.indexOf('active') > 0) ? sideNav.className = sideNav.className.replace(
+                    ' active', ''): sideNav.className += ' active';
+            });
+        });
+    </script>
+</body>
+
+</html>

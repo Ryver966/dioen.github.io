@@ -1,0 +1,31 @@
+{
+  "name": "study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack -d --watch",
+    "prod": "webpack -p",
+    "start": "http-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "html-loader": "^0.4.5",
+    "http-server": "^0.9.0",
+    "json-loader": "^0.5.4",
+    "ng-loader": "^2.0.7",
+    "ngtemplate-loader": "^1.3.1",
+    "style-loader": "^0.16.1",
+    "webpack": "^2.4.1"
+  },
+  "dependencies": {
+    "angular": "^1.6.4",
+    "youtube-node": "^1.3.0"
+  }
+}

@@ -237,11 +237,12 @@ p.p-title {
 	padding: 0 !important;
 	margin: 0 !important;
 	transition: opacity 1s ease-in-out;
+    transition: transform 0.5s;
 }
 
 .product-img:hover > div > img{
 	transform: scale(1.2);
-	transition: transform 0.5s;
+	
 }
 
 .product-img:hover > .product-hover {
