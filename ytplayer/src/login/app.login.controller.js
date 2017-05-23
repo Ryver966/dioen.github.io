@@ -1,6 +1,6 @@
-loginController.$inject = ['$scope', 'OAuthService', 'YTService', 'Factory'];
+loginController.$inject = ['$scope', 'OAuthService', 'YTService', 'Factory', 'GoogleFileService'];
 
-export default function loginController($scope, OAuthService, YTService, Factory) {
+export default function loginController($scope, OAuthService, YTService, Factory, GoogleFileService) {
     let gapi = OAuthService.login();
 
     let onFailure = (error) => {
@@ -12,14 +12,18 @@ export default function loginController($scope, OAuthService, YTService, Factory
     let testFileContent = "{\"asd\": \"cos\", \"asd1\": \"cos1\"}";
 
     let onSuccess = (googleUser) => {
-        YTService.ifFileExist(gapi)
+        GoogleFileService.ifFileExist(gapi)
             .then((response) => {
-                if (!response) {
-                    YTService.saveFileOnDrive(gapi, testFileContent);
+                if (!response.response) {
+                    GoogleFileService.saveFileOnDrive(gapi, testFileContent);
                     console.log("created file");
+                    // onSuccess(googleUser); have to make it to be after promise, coz it's invoking several times not only ones as needed
                 } else {
                     console.log("file exists");
-                    Factory.setUserSettingsFileContent(YTService.loadFileFromDrive(gapi));
+                    console.log(response.id);
+                    Factory.setUserSettingsFileId(response.id);
+                    Factory.setUserSettingsFileContent(GoogleFileService.loadFileFromDrive(gapi));
+                    Factory.setGoogleGapiUser(gapi);
                 }
             });
     }

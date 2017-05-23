@@ -5,6 +5,7 @@ class Factory {
         this.data.alreadyPlayedVideos = [];
         this.data.userSettingsFileId;
         this.data.userSettingsFileContent;
+        this.gapiUser;
     }
 
     getFactoryRelatedVid() {
@@ -47,11 +48,15 @@ class Factory {
     }
 
     setUserSettingsFileId(fileId) {
-        this.userSettingsFileId = fileId;
+        this.data.userSettingsFileId = fileId;
     }
 
     setUserSettingsFileContent(fileContent) {
-        this.data.setUserSettingsFileContent = fileContent;
+        this.data.userSettingsFileContent = fileContent;
+    }
+
+    setGoogleGapiUser(gapiUser) {
+        this.gapiUser = gapiUser;
     }
 }
 
