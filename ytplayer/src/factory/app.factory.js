@@ -6,6 +6,7 @@ class Factory {
         this.data.userSettingsFileId;
         this.data.userSettingsFileContent;
         this.gapiUser;
+        this.data.videos = [];
     }
 
     getFactoryRelatedVid() {
@@ -57,6 +58,10 @@ class Factory {
 
     setGoogleGapiUser(gapiUser) {
         this.gapiUser = gapiUser;
+    }
+
+    addVideoToUserList(videoItem) {
+        this.data.videos.push(videoItem);
     }
 }
 

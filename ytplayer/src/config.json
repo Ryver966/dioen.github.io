@@ -7,15 +7,27 @@
   "ascent": 850,
   "glyphs": [
     {
+      "uid": "9dd9e835aebe1060ba7190ad2b2ed951",
+      "css": "search",
+      "code": 59403,
+      "src": "fontawesome"
+    },
+    {
       "uid": "559647a6f430b3aeadbecd67194451dd",
       "css": "menu",
       "code": 61641,
       "src": "fontawesome"
     },
     {
-      "uid": "9dd9e835aebe1060ba7190ad2b2ed951",
-      "css": "search",
+      "uid": "97bd5542ed3e143d2ee9b60e14487615",
+      "css": "list-add",
       "code": 59392,
+      "src": "entypo"
+    },
+    {
+      "uid": "090c79ed8971e478a27fae8a3eb3eb11",
+      "css": "hashtag",
+      "code": 62098,
       "src": "fontawesome"
     }
   ]

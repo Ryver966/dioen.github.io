@@ -9,20 +9,40 @@ export default function loginController($scope, OAuthService, YTService, Factory
 
     console.log("LOGIN");
 
-    let testFileContent = "{\"asd\": \"cos\", \"asd1\": \"cos1\"}";
+    let testFileContent = '{"settings": {"items":[]}}';
 
     let onSuccess = (googleUser) => {
+        Factory.setGoogleGapiUser(gapi);
+
         GoogleFileService.ifFileExist(gapi)
             .then((response) => {
                 if (!response.response) {
-                    GoogleFileService.saveFileOnDrive(gapi, testFileContent);
+                    GoogleFileService.saveFileOnDrive(gapi, testFileContent)
+                        .then((response) => {
+                            Factory.setUserSettingsFileId(response.id);
+                            GoogleFileService.loadFileFromDrive(gapi, response.id)
+                                .then((response) => {
+                                    console.log(response);
+                                    console.log('response from saved file');
+
+                                    Factory.setUserSettingsFileContent(response);
+                                });
+                        });
                     console.log("created file");
+
                     // onSuccess(googleUser); have to make it to be after promise, coz it's invoking several times not only ones as needed
                 } else {
                     console.log("file exists");
                     console.log(response.id);
                     Factory.setUserSettingsFileId(response.id);
-                    Factory.setUserSettingsFileContent(GoogleFileService.loadFileFromDrive(gapi));
+                    // Factory.setUserSettingsFileContent(GoogleFileService.loadFileFromDrive(gapi, response.id));
+                    GoogleFileService.loadFileFromDrive(gapi, response.id)
+                        .then((response) => {
+                            console.log('loaded file');
+                            console.log(response);
+                            Factory.setUserSettingsFileContent(response);
+                        });
+                    console.log('user settings file loaded');
                     Factory.setGoogleGapiUser(gapi);
                 }
             });

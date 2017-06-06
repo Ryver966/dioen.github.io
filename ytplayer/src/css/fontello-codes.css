@@ -1,3 +1,5 @@
 
-.icon-search:before { content: '\e800'; } /* '' */
+.icon-list-add:before { content: '\e800'; } /* '' */
+.icon-search:before { content: '\e80b'; } /* '' */
 .icon-menu:before { content: '\f0c9'; } /* '' */
+.icon-hashtag:before { content: '\f292'; } /* '' */

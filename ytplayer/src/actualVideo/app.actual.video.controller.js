@@ -1,4 +1,4 @@
-let YTPlayer = require('yt-player');
+// import YTPlayer from 'youtube-player';
 
 let actualVideoController = ($scope, Factory, YTService) => {
 

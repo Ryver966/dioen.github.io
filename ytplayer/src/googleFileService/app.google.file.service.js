@@ -28,33 +28,40 @@ export default class GoogleFileService {
     }
 
     saveFileOnDrive(gapi, data) {
-        let multipartRequestBody = this.createFileWithJSONContent(data);
-        const boundary = '-------314159265358979323846';
+        return new Promise((resolve, reject) => {
+            let multipartRequestBody = this.createFileWithJSONContent(data);
+            const boundary = '-------314159265358979323846';
 
-        var request = gapi.client.request({
-            'path': '/upload/drive/v3/files',
-            'method': 'POST',
-            'params': {
-                'uploadType': 'multipart'
-            },
-            'headers': {
-                'Content-Type': 'multipart/related; boundary="' + boundary + '"'
-            },
-            'body': multipartRequestBody
+            var request = gapi.client.request({
+                'path': '/upload/drive/v3/files',
+                'method': 'POST',
+                'params': {
+                    'uploadType': 'multipart'
+                },
+                'headers': {
+                    'Content-Type': 'multipart/related; boundary="' + boundary + '"'
+                },
+                'body': multipartRequestBody
+            });
+
+            request.execute((response) => {
+                resolve(response);
+            });
         });
-
-        request.execute();
     }
 
     loadFileFromDrive(gapi, fileId) {
-        let request = gapi.client.drive.files.get({
-            fileId: fileId,
-            mimeType: 'text/json',
-            alt: 'media'
-        });
+        return new Promise((resolve, reject) => {
+            let request = gapi.client.drive.files.get({
+                fileId: fileId,
+                mimeType: 'text/json',
+                alt: 'media'
+            });
 
-        request.execute((response) => {
-            console.log(response);
+            request.execute((response) => {
+                console.log(response);
+                resolve(response);
+            });
         });
     }
 
@@ -97,7 +104,4 @@ export default class GoogleFileService {
 
         request.execute();
     }
-
-
-
 }
