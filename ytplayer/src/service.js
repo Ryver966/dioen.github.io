@@ -13,7 +13,7 @@ export default class YTService {
 
         let mapper = (element) => {
             let vidObj = {
-                src: this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&version=3&autoplay=1'),
+                src: this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1'),
                 title: element.snippet.title,
                 img: element.snippet.thumbnails.medium.url,
                 id: element.id.videoId
@@ -40,7 +40,7 @@ export default class YTService {
 
             console.log(videoId);
 
-            youtube.related(videoId, 10, function (error, result) {
+            youtube.related(videoId, 10, function(error, result) {
                 if (error) {
                     console.log(error);
                 } else {
@@ -62,7 +62,7 @@ export default class YTService {
         let youtube = new YouTube();
         let mapper = (element) => {
             let vidObj = {
-                src: this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&version=3&autoplay=1'),
+                src: this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1'),
                 title: element.snippet.title,
                 img: element.snippet.thumbnails.medium.url,
                 id: element.id.videoId
@@ -73,7 +73,7 @@ export default class YTService {
 
         return new Promise((resolve, reject) => {
             youtube.setKey('AIzaSyCG4TkK-ABOZU0KisXMiFWhDm7e4S9v3QM');
-            youtube.search(query, 50, function (error, result) {
+            youtube.search(query, 50, function(error, result) {
                 if (error) {
                     console.log(error);
                 } else {

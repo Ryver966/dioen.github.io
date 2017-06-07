@@ -250,4 +250,18 @@ button {
     .video-list-view {
         width: 100%;
     }
+    .login-btn {
+        position: fixed !important;
+        height: 50px !important;
+        width: 240px !important;
+        bottom: 0 !important;
+        left: 0 !important;
+    }
+    .login-btn {
+        position: fixed !important;
+        height: 50px !important;
+        width: 240px !important;
+        bottom: 0 !important;
+        left: 0 !important;
+    }
 }
