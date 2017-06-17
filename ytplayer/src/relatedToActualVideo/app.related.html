@@ -1,7 +1,7 @@
 <div class="next-video-wrapper">
     <h3 class="next-video-statement">Następnie:</h3>
-    <div class="next-video-card" ng-click="loadRelated($index)" ng-if="relatedVid">
-        <img class="next-video-image" src="{{relatedVid.img}}" alt="">
-        <div class="next-video-title">{{relatedVid.title}}</div>
+    <div class="next-video-card" ng-click="relatedVM.loadRelated($index)" ng-if="relatedVM.relatedVid">
+        <img class="next-video-image" src="{{relatedVM.relatedVid.img}}" alt="">
+        <div class="next-video-title">{{relatedVM.relatedVid.title}}</div>
     </div>
 </div>

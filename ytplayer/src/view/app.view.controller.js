@@ -1,8 +1,10 @@
 vidCtrl.$inject = ['$scope', '$timeout', 'Factory', 'YTService', 'GoogleFileService'];
 
 export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFileService) {
-    $scope.setActualVid = (index) => {
-        let actualItem = $scope.data[index];
+    let vm = this;
+
+    vm.setActualVid = (index) => {
+        let actualItem = vm.data[index];
 
         Factory.setActualVid(actualItem);
         YTService.getRelatedVideosById(actualItem.id)
@@ -14,19 +16,19 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
     }
 
     $scope.$watch(
-        function () {
+        function() {
             return Factory.data.data;
         },
-        function (newVal, oldVal) {
+        function(newVal, oldVal) {
             if (newVal !== undefined) {
-                $scope.data = newVal;
+                vm.data = newVal;
             }
         }, true);
 
-    $scope.init = () => {
+    vm.init = () => {
         YTService.getDataByString("")
             .then((data) => {
-                $timeout($scope.data = data);
+                $timeout(vm.data = data);
             });
     }
 
@@ -43,15 +45,15 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
     // }
 
 
-    $scope.addToUserList = (itemIndex) => {
+    vm.addToUserList = (itemIndex) => {
         let gapi = Factory.gapiUser;
         let fileId = Factory.data.userSettingsFileId;
         let userSettingsFileContent = Factory.data.userSettingsFileContent;
-        
+
         let videoObject = {
-            id: $scope.data[itemIndex].id,
-            img: $scope.data[itemIndex].img,
-            title: $scope.data[itemIndex].title
+            id: vm.data[itemIndex].id,
+            img: vm.data[itemIndex].img,
+            title: vm.data[itemIndex].title
         }
 
         console.log(userSettingsFileContent);
@@ -64,8 +66,10 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
 
         GoogleFileService.updateFileOnDrive(gapi, JSON.stringify(Factory.data.userSettingsFileContent), fileId);
 
-        setTimeout(function () {
+        setTimeout(function() {
             GoogleFileService.loadFileFromDrive(gapi, fileId);
         }, 2000);
     }
+
+    return vm;
 }

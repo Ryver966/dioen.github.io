@@ -1,14 +1,14 @@
-<div class="video-list-view" ng-init="init()">
-    <div class="video-card" ng-repeat="vid in data">
+<div class="video-list-view" ng-init="vidVM.init()">
+    <div class="video-card" ng-repeat="vid in vidVM.data">
         <div class="video-card-wrapper">
             <!--<div ng-click="setActualVid($index); test()" title="{{vid.title}}">-->
-            <div ng-click="setActualVid($index)" title="{{vid.title}}">
+            <div ng-click="vidVM.setActualVid($index)" title="{{vidVM.vid.title}}">
                 <img src="{{vid.img}}" alt="">
             </div>
             <div class="video-title-wrapper">
                 {{vid.title}}
             </div>
-            <div class="icon-list-add list-add-icon" ng-click="addToUserList($index)"></div>
+            <div class="icon-list-add list-add-icon" ng-click="vidVM.addToUserList($index)"></div>
         </div>
     </div>
 </div>

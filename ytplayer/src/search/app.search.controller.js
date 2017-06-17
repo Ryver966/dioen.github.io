@@ -1,13 +1,15 @@
 searchController.$inject = ['$scope', 'YTService', 'Factory'];
 
 export default function searchController($scope, YTService, Factory) {
-    $scope.getYTData = () => {
-        console.log($scope.query);
-        YTService.getDataByString($scope.query)
+    let vm = this;
+    vm.getYTData = () => {
+        YTService.getDataByString(vm.query)
             .then((data) => {
                 Factory.setFactoryData(data);
                 Factory.clearAlreadyPlayedVideos();
             });
     }
     document.getElementById('search-input').focus();
+
+    return vm;
 };

@@ -1,7 +1,8 @@
-loginController.$inject = ['$scope', 'OAuthService', 'YTService', 'Factory', 'GoogleFileService'];
+loginController.$inject = ['OAuthService', 'YTService', 'Factory', 'GoogleFileService'];
 
-export default function loginController($scope, OAuthService, YTService, Factory, GoogleFileService) {
+export default function loginController(OAuthService, YTService, Factory, GoogleFileService) {
     let gapi = OAuthService.login();
+    let vm = this;
 
     let onFailure = (error) => {
         console.log(error);
@@ -48,7 +49,7 @@ export default function loginController($scope, OAuthService, YTService, Factory
             });
     }
 
-    $scope.renderButton = () => {
+    vm.renderButton = () => {
         gapi.signin2.render('g-signin2', {
             'scope': 'profile',
             'width': 240,
@@ -60,5 +61,7 @@ export default function loginController($scope, OAuthService, YTService, Factory
         });
     }
 
-    $scope.renderButton();
+    vm.renderButton();
+
+    return vm;
 }
