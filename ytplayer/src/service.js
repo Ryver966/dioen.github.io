@@ -2,8 +2,7 @@ let YouTube = require('youtube-node');
 
 export default class YTService {
 
-    constructor($sce, Factory) {
-        this.$sce = $sce;
+    constructor(Factory) {
         this.Factory = Factory;
     }
 
@@ -13,7 +12,7 @@ export default class YTService {
 
         let mapper = (element) => {
             let vidObj = {
-                src: this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1'),
+                src: 'https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1',
                 title: element.snippet.title,
                 img: element.snippet.thumbnails.medium.url,
                 id: element.id.videoId
@@ -49,9 +48,6 @@ export default class YTService {
                     let temp3;
 
                     temp3 = chooseVideo(temp1, temp);
-                    console.log(_Factory.getAlreadyPlayedVideos());
-                    console.log(temp3);
-                    console.log('from service');
                     resolve(temp3);
                 }
             });
@@ -62,7 +58,7 @@ export default class YTService {
         let youtube = new YouTube();
         let mapper = (element) => {
             let vidObj = {
-                src: this.$sce.trustAsResourceUrl('https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1'),
+                src: 'https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1',
                 title: element.snippet.title,
                 img: element.snippet.thumbnails.medium.url,
                 id: element.id.videoId

@@ -7,7 +7,7 @@ export default function relatedController($scope, Factory, YTService) {
             return Factory.data.relatedToActualVid;
         },
         function(newVal, oldVal) {
-            if (newVal !== undefined) {
+            if (newVal != undefined) {
                 vm.relatedVid = newVal;
             }
         }, true)

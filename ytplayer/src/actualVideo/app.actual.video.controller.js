@@ -1,6 +1,6 @@
 // import YouTubePlayer from 'youtube-player';
 
-let actualVideoController = ($scope, $timeout, Factory, YTService) => {
+let actualVideoController = ($scope, $timeout, $sce, Factory, YTService) => {
     let vm = this;
     let onPlay = () => {
         console.log('playing');
@@ -17,13 +17,13 @@ let actualVideoController = ($scope, $timeout, Factory, YTService) => {
         }
     }
 
-
     $scope.$watch(() => {
         return Factory.data.actualVid;
     }, (newVal, oldVal) => {
         let player;
-        if (newVal !== undefined) {
-            vm.vid = newVal;
+
+        if (newVal != undefined) {
+            vm.vid = $sce.trustAsResourceUrl(newVal.src.toString());
             $timeout(() => {
                 player = new YT.Player('playYT', {
                     events: {
@@ -38,6 +38,6 @@ let actualVideoController = ($scope, $timeout, Factory, YTService) => {
     return vm;
 }
 
-actualVideoController.$inject = ['$scope', '$timeout', 'Factory', 'YTService'];
+actualVideoController.$inject = ['$scope', '$timeout', '$sce', 'Factory', 'YTService'];
 
 export default actualVideoController;

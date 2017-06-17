@@ -20,7 +20,7 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
             return Factory.data.data;
         },
         function(newVal, oldVal) {
-            if (newVal !== undefined) {
+            if (newVal != undefined) {
                 vm.data = newVal;
             }
         }, true);
@@ -32,19 +32,6 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
             });
     }
 
-    // $scope.test = () => {
-    //     // let testFileContent = "{\"asd\": \"cos\", \"asd1\": \"cos1\", \"asd2\": \"cos2\"}";
-    //     let gapi = Factory.gapiUser;
-    //     let fileId = Factory.data.userSettingsFileId;
-    //     console.log(fileId + " file id");
-    //     GoogleFileService.updateFileOnDrive(gapi, testFileContent, fileId);
-
-    //     setTimeout(() => {
-    //         GoogleFileService.loadFileFromDrive(gapi, fileId);
-    //     }, 3000);
-    // }
-
-
     vm.addToUserList = (itemIndex) => {
         let gapi = Factory.gapiUser;
         let fileId = Factory.data.userSettingsFileId;
@@ -53,11 +40,9 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
         let videoObject = {
             id: vm.data[itemIndex].id,
             img: vm.data[itemIndex].img,
-            title: vm.data[itemIndex].title
+            title: vm.data[itemIndex].title,
+            src: vm.data[itemIndex].src //sprawddzic czy na pewno potrzebny
         }
-
-        console.log(userSettingsFileContent);
-        console.log('userSettingsFileContent');
 
         userSettingsFileContent.settings.items.push(videoObject);
 

@@ -41,7 +41,7 @@ class Factory {
     }
 
     addAlreadyPlayedVideo(videoId) {
-        this.data.alreadyPlayedVideos.push(videoId) ;
+        this.data.alreadyPlayedVideos.push(videoId);
     }
 
     clearAlreadyPlayedVideos() {

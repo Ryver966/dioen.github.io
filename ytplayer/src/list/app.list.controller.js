@@ -3,9 +3,6 @@ let listController = (GoogleFileService, Factory) => {
     vm.showList = () => {
         GoogleFileService.loadFileFromDrive(Factory.gapiUser, Factory.data.userSettingsFileId)
             .then((response) => {
-                // $scope.data = response.settings.items;
-                // $scope.$apply();
-
                 Factory.setFactoryData(response.settings.items);
             });
     }
