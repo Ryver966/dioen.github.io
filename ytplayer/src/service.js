@@ -20,6 +20,12 @@ export default class YTService {
             return vidObj;
         }
 
+        let filter = (element) => {
+            if (element.id.videoId != undefined) {
+                return element;
+            }
+        }
+
         let chooseVideo = (alreadyPlayedList, relatedVideosList) => {
             _Factory.addAlreadyPlayedVideo(videoId);
             for (let i = 0; i < relatedVideosList.length; i++) {
@@ -43,7 +49,8 @@ export default class YTService {
                 if (error) {
                     console.log(error);
                 } else {
-                    let temp = result.items.map(mapper);
+                    let temp = result.items.filter(filter);
+                    temp = temp.map(mapper);
                     let temp1 = _Factory.getAlreadyPlayedVideos();
                     let temp3;
 
@@ -66,6 +73,11 @@ export default class YTService {
             return vidObj;
         }
 
+        let filter = (element) => {
+            if (element.id.videoId != undefined) {
+                return element;
+            }
+        }
 
         return new Promise((resolve, reject) => {
             youtube.setKey('AIzaSyCG4TkK-ABOZU0KisXMiFWhDm7e4S9v3QM');
@@ -74,7 +86,8 @@ export default class YTService {
                     console.log(error);
                 } else {
                     console.log(result);
-                    let temp = result.items.map(mapper);
+                    let temp = result.items.filter(filter);
+                    temp = temp.map(mapper);
                     resolve(temp);
                 }
             });
