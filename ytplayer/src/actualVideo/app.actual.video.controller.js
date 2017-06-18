@@ -23,7 +23,7 @@ let actualVideoController = ($scope, $timeout, $sce, Factory, YTService) => {
         let player;
 
         if (newVal != undefined) {
-            vm.vid = $sce.trustAsResourceUrl(newVal.src.toString());
+            vm.vid = $sce.trustAsResourceUrl(newVal.src);
             $timeout(() => {
                 player = new YT.Player('playYT', {
                     events: {

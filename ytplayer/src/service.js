@@ -12,7 +12,7 @@ export default class YTService {
 
         let mapper = (element) => {
             let vidObj = {
-                src: 'https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1',
+                src: 'https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1&controls=2',
                 title: element.snippet.title,
                 img: element.snippet.thumbnails.medium.url,
                 id: element.id.videoId
@@ -65,7 +65,7 @@ export default class YTService {
         let youtube = new YouTube();
         let mapper = (element) => {
             let vidObj = {
-                src: 'https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1',
+                src: 'https://www.youtube.com/embed/' + element.id.videoId + '?enablejsapi=1&autoplay=1&controls=2',
                 title: element.snippet.title,
                 img: element.snippet.thumbnails.medium.url,
                 id: element.id.videoId
