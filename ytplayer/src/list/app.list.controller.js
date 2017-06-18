@@ -1,5 +1,6 @@
-let listController = (GoogleFileService, Factory) => {
+let listController = ($scope, GoogleFileService, Factory) => {
     let vm = this;
+
     vm.showList = () => {
         GoogleFileService.loadFileFromDrive(Factory.gapiUser, Factory.data.userSettingsFileId)
             .then((response) => {
@@ -11,9 +12,15 @@ let listController = (GoogleFileService, Factory) => {
         let tagsArray = vm.tags;
     }
 
+    $scope.$watch(() => {
+        return Factory.data.isUserLoggedIn;
+    }, (newVal, oldVal) => {
+        vm.isUserLoggedIn = newVal;
+    });
+
     return vm;
 }
 
-listController.$inject = ['GoogleFileService', 'Factory']
+listController.$inject = ['$scope', 'GoogleFileService', 'Factory'];
 
-export default listController
+export default listController;

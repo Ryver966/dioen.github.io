@@ -1,5 +1,5 @@
 <div>
-    <div class="show-user-list-button" ng-click="listVM.showList()">Pokaż listę</div>
+    <div class="show-user-list-button" ng-click="listVM.showList()" ng-show="listVM.isUserLoggedIn">Pokaż listę</div>
     <!--<div ng-repeat="vid in data">
         <div title="{{vid.title}}">
             <img src="{{vid.img}}" alt="">

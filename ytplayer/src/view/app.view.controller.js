@@ -56,5 +56,12 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
         }, 2000);
     }
 
+    $scope.$watch(() => {
+        return Factory.data.isUserLoggedIn;
+    }, (newVal, oldVal) => {
+        console.log("NOWA WAROSC!");
+        vm.isUserLoggedIn = newVal;
+    });
+
     return vm;
 }

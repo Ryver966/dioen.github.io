@@ -7,6 +7,17 @@ class Factory {
         this.data.userSettingsFileContent;
         this.gapiUser;
         this.data.videos = [];
+        this.data.isUserLoggedIn = false;
+    }
+
+    setIsUserLoggedIn(boolValue) {
+        this.$timeout(() => {
+            this.data.isUserLoggedIn = boolValue;
+        });
+    }
+
+    getIsUserLoggedIn() {
+        return this.data.isUserLoggedIn;
     }
 
     getFactoryRelatedVid() {

@@ -8,7 +8,7 @@
             <div class="video-title-wrapper">
                 {{vid.title}}
             </div>
-            <div class="icon-list-add list-add-icon" ng-click="vidVM.addToUserList($index)"></div>
+            <div class="icon-list-add list-add-icon" ng-click="vidVM.addToUserList($index)" ng-show="vidVM.isUserLoggedIn"></div>
         </div>
     </div>
 </div>

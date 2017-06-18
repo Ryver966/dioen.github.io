@@ -5,15 +5,15 @@ export default function loginController(OAuthService, YTService, Factory, Google
     let vm = this;
 
     let onFailure = (error) => {
-        console.log(error);
+        Factory.setIsUserLoggedIn(false);
     }
 
-    console.log("LOGIN");
 
     let testFileContent = '{"settings": {"items":[]}}';
 
     let onSuccess = (googleUser) => {
         Factory.setGoogleGapiUser(gapi);
+        console.log("LOGIN");
 
         GoogleFileService.ifFileExist(gapi)
             .then((response) => {
@@ -29,22 +29,15 @@ export default function loginController(OAuthService, YTService, Factory, Google
                                     Factory.setUserSettingsFileContent(response);
                                 });
                         });
-                    console.log("created file");
-
-                    // onSuccess(googleUser); have to make it to be after promise, coz it's invoking several times not only ones as needed
                 } else {
-                    console.log("file exists");
-                    console.log(response.id);
                     Factory.setUserSettingsFileId(response.id);
                     // Factory.setUserSettingsFileContent(GoogleFileService.loadFileFromDrive(gapi, response.id));
                     GoogleFileService.loadFileFromDrive(gapi, response.id)
                         .then((response) => {
-                            console.log('loaded file');
-                            console.log(response);
                             Factory.setUserSettingsFileContent(response);
                         });
-                    console.log('user settings file loaded');
                     Factory.setGoogleGapiUser(gapi);
+                    Factory.setIsUserLoggedIn(true);
                 }
             });
     }
