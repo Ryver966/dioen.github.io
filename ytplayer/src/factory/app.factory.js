@@ -8,6 +8,24 @@ class Factory {
         this.gapiUser;
         this.data.videos = [];
         this.data.isUserLoggedIn = false;
+        this.data.actualPlayingListType;
+        this.isSearching = false;
+    }
+
+    setIsSearching(isSearching) {
+        this.isSearching = isSearching;
+    }
+
+    getIsSearching() {
+        return this.isSearching;
+    }
+
+    setActualPlayingListType(listType) {
+        this.data.actualPlayingListType = listType;
+    }
+
+    getActualPlayingListType() {
+        return this.data.actualPlayingListType;
     }
 
     setIsUserLoggedIn(boolValue) {
@@ -31,13 +49,17 @@ class Factory {
     }
 
     getFactoryData() {
-        return this.data.data;
+        return this.data.data; //list of videos set by search
     }
 
     setFactoryData(data1) {
         this.$timeout(() => {
-            this.data.data = data1;
+            this.data.data = data1; //list of videos set by search
         });
+    }
+
+    getActualVid() {
+        return this.data.actualVid;
     }
 
     setActualVid(src) {

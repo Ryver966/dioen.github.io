@@ -9,7 +9,12 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
         Factory.setActualVid(actualItem);
         YTService.getRelatedVideosById(actualItem.id)
             .then((data1) => {
+                let isSearching = Factory.getIsSearching();
                 Factory.setRelatedToActualVid(data1);
+
+                if (isSearching) {
+                    Factory.setActualPlayingListType("searchlist");
+                }
             });
 
         Factory.clearAlreadyPlayedVideos();

@@ -5,6 +5,8 @@ let listController = ($scope, GoogleFileService, Factory) => {
         GoogleFileService.loadFileFromDrive(Factory.gapiUser, Factory.data.userSettingsFileId)
             .then((response) => {
                 Factory.setFactoryData(response.settings.items);
+                Factory.setActualPlayingListType("userlist");
+                Factory.setIsSearching(false);
             });
     }
 

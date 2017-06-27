@@ -7,6 +7,7 @@ export default function searchController($scope, YTService, Factory) {
             .then((data) => {
                 Factory.setFactoryData(data);
                 Factory.clearAlreadyPlayedVideos();
+                Factory.setIsSearching(true);
             });
     }
     document.getElementById('search-input').focus();
