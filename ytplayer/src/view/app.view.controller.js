@@ -12,8 +12,11 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
                 let isSearching = Factory.getIsSearching();
                 Factory.setRelatedToActualVid(data1);
 
-                if (isSearching) {
-                    Factory.setActualPlayingListType("searchlist");
+                console.log(actualItem)
+                if (actualItem.user == 'yes') {
+                    Factory.setActualPlayingListType('userlist');
+                } else {
+                    Factory.setActualPlayingListType('searchlist');
                 }
             });
 
@@ -33,6 +36,8 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
     vm.init = () => {
         YTService.getDataByString("")
             .then((data) => {
+                Factory.setActualPlayingListType("searchlist");
+                Factory.setIsSearching(true);
                 $timeout(vm.data = data);
             });
     }
@@ -46,7 +51,8 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
             id: vm.data[itemIndex].id,
             img: vm.data[itemIndex].img,
             title: vm.data[itemIndex].title,
-            src: vm.data[itemIndex].src //sprawddzic czy na pewno potrzebny
+            src: vm.data[itemIndex].src, //sprawddzic czy na pewno potrzebny
+            user: 'yes'
         }
 
         userSettingsFileContent.settings.items.push(videoObject);

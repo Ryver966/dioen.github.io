@@ -1,29 +1,26 @@
-// import YouTubePlayer from 'youtube-player';
-
 let actualVideoController = ($scope, $timeout, $sce, Factory, YTService) => {
     let vm = this;
 
     let onPlay = () => {
         console.log('playing');
     }
-
-    let data;
+    let data; //need to be global (bad practice I know)
 
     let loadNextVideo = (event) => {
         let isSearch = Factory.getIsSearching();
         let actualVid = Factory.getActualVid();
-        if (!isSearch) {
+
+        if (!isSearch) { //if searching, actual video is being set from Related Vid
             data = Factory.getFactoryData();
-            Factory.setActualPlayingListType("userlist");
         }
 
-        let actualVideoIndex = data.indexOf(actualVid);
-
-        if ((event.data == YT.PlayerState.ENDED)) {
+        if (event.data == YT.PlayerState.ENDED) {
             let actualListType = Factory.getActualPlayingListType();
 
             switch (actualListType) {
                 case "userlist":
+                    let actualVideoIndex = data.indexOf(actualVid);
+
                     if (actualVid != undefined) {
                         actualVideoIndex++;
                         if (actualVideoIndex == data.length) actualVideoIndex = 0;
