@@ -1,18 +1,18 @@
-loginController.$inject = ['OAuthService', 'YTService', 'Factory', 'GoogleFileService'];
+loginController.$inject = ['OAuthService', 'YTService', 'DataService', 'GoogleFileService'];
 
-export default function loginController(OAuthService, YTService, Factory, GoogleFileService) {
+export default function loginController(OAuthService, YTService, DataService, GoogleFileService) {
     let gapi = OAuthService.login();
     let vm = this;
 
     let onFailure = (error) => {
-        Factory.setIsUserLoggedIn(false);
+        DataService.setIsUserLoggedIn(false);
     }
 
 
-    let testFileContent = '{"settings": {"items":[]}}';
+    let testFileContent = '{"settings": "items":[]}';
 
     let onSuccess = (googleUser) => {
-        Factory.setGoogleGapiUser(gapi);
+        DataService.setGoogleGapiUser(gapi);
         console.log("LOGIN");
 
         GoogleFileService.ifFileExist(gapi)
@@ -20,24 +20,24 @@ export default function loginController(OAuthService, YTService, Factory, Google
                 if (!response.response) {
                     GoogleFileService.saveFileOnDrive(gapi, testFileContent)
                         .then((response) => {
-                            Factory.setUserSettingsFileId(response.id);
+                            DataService.setUserSettingsFileId(response.id);
                             GoogleFileService.loadFileFromDrive(gapi, response.id)
                                 .then((response) => {
                                     console.log(response);
                                     console.log('response from saved file');
 
-                                    Factory.setUserSettingsFileContent(response);
+                                    DataService.setUserSettingsFileContent(response);
                                 });
                         });
                 } else {
-                    Factory.setUserSettingsFileId(response.id);
-                    // Factory.setUserSettingsFileContent(GoogleFileService.loadFileFromDrive(gapi, response.id));
+                    DataService.setUserSettingsFileId(response.id);
+                    // DataService.setUserSettingsFileContent(GoogleFileService.loadFileFromDrive(gapi, response.id));
                     GoogleFileService.loadFileFromDrive(gapi, response.id)
                         .then((response) => {
-                            Factory.setUserSettingsFileContent(response);
+                            DataService.setUserSettingsFileContent(response);
                         });
-                    Factory.setGoogleGapiUser(gapi);
-                    Factory.setIsUserLoggedIn(true);
+                        DataService.setGoogleGapiUser(gapi);
+                        DataService.setIsUserLoggedIn(true);
                 }
             });
     }

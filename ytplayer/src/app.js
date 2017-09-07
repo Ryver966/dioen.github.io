@@ -2,7 +2,7 @@ import angular from 'angular';
 
 import YTService from './service';
 import OAuthService from './OAuthService/app.auth';
-import Factory from './factory/app.factory';
+import DataService from './factory/app.factory';
 import GoogleFileService from './googleFileService/app.google.file.service';
 // import routes from './routes';
 // import ui from 'angular-ui-router';
@@ -20,7 +20,7 @@ let app = angular.module("myApp", [])
     .service("YTService", YTService)
     .service("OAuthService", OAuthService)
     .service("GoogleFileService", GoogleFileService)
-    .factory('Factory', Factory)
+    .service('DataService', DataService)
     // .config(routes)
     .component('search', searchComponent)
     .component('view', viewComponent)

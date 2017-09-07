@@ -209,6 +209,15 @@ button {
     color: #f66;
     background: #dedede;
     top: 0;
+    left: 0;
+}
+
+.list-remove-icon {
+    position: absolute;
+    font-size: 30px;
+    color: #f66;
+    background: #dedede;
+    top: 0;
     right: 0;
 }
 

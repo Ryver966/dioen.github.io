@@ -1,4 +1,4 @@
-let actualVideoController = ($scope, $timeout, $sce, Factory, YTService) => {
+let actualVideoController = ($scope, $timeout, $sce, DataService, YTService) => {
     let vm = this;
 
     let onPlay = () => {
@@ -7,15 +7,15 @@ let actualVideoController = ($scope, $timeout, $sce, Factory, YTService) => {
     let data; //need to be global (bad practice I know)
 
     let loadNextVideo = (event) => {
-        let isSearch = Factory.getIsSearching();
-        let actualVid = Factory.getActualVid();
+        let isSearch = DataService.getIsSearching();
+        let actualVid = DataService.getActualVid();
 
         if (!isSearch) { //if searching, actual video is being set from Related Vid
-            data = Factory.getFactoryData();
+            data = DataService.getFactoryData();
         }
 
         if (event.data == YT.PlayerState.ENDED) {
-            let actualListType = Factory.getActualPlayingListType();
+            let actualListType = DataService.getActualPlayingListType();
 
             switch (actualListType) {
                 case "userlist":
@@ -24,20 +24,20 @@ let actualVideoController = ($scope, $timeout, $sce, Factory, YTService) => {
                     if (actualVid != undefined) {
                         actualVideoIndex++;
                         if (actualVideoIndex == data.length) actualVideoIndex = 0;
-                        Factory.setActualVid(data[actualVideoIndex]);
+                        DataService.setActualVid(data[actualVideoIndex]);
 
-                        YTService.getRelatedVideosById(Factory.data.relatedToActualVid.id)
+                        YTService.getRelatedVideosById(DataService.data.relatedToActualVid.id)
                             .then((data1) => {
-                                Factory.setRelatedToActualVid(data1);
+                                DataService.setRelatedToActualVid(data1);
                             });
                     }
                     break;
                 case "searchlist":
-                    Factory.setActualVid(Factory.data.relatedToActualVid);
+                DataService.setActualVid(DataService.data.relatedToActualVid);
 
-                    YTService.getRelatedVideosById(Factory.data.relatedToActualVid.id)
+                    YTService.getRelatedVideosById(DataService.data.relatedToActualVid.id)
                         .then((data1) => {
-                            Factory.setRelatedToActualVid(data1);
+                            DataService.setRelatedToActualVid(data1);
                         });
                     break;
             }
@@ -45,7 +45,7 @@ let actualVideoController = ($scope, $timeout, $sce, Factory, YTService) => {
     }
 
     $scope.$watch(() => {
-        return Factory.data.actualVid;
+        return DataService.data.actualVid;
     }, (newVal, oldVal) => {
         let player;
 
@@ -65,6 +65,6 @@ let actualVideoController = ($scope, $timeout, $sce, Factory, YTService) => {
     return vm;
 }
 
-actualVideoController.$inject = ['$scope', '$timeout', '$sce', 'Factory', 'YTService'];
+actualVideoController.$inject = ['$scope', '$timeout', '$sce', 'DataService', 'YTService'];
 
 export default actualVideoController;

@@ -1,12 +1,14 @@
-let listController = ($scope, GoogleFileService, Factory) => {
+listController.$inject = ['$scope', 'GoogleFileService', 'DataService'];
+
+export default function listController($scope, GoogleFileService, DataService) {
     let vm = this;
 
     vm.showList = () => {
-        GoogleFileService.loadFileFromDrive(Factory.gapiUser, Factory.data.userSettingsFileId)
+        GoogleFileService.loadFileFromDrive(DataService.gapiUser, DataService.data.userSettingsFileId)
             .then((response) => {
-                Factory.setFactoryData(response.settings.items);
-                //Factory.setActualPlayingListType("userlist");
-                Factory.setIsSearching(false);
+                DataService.setFactoryData(response.settings.items);
+                //DataService.setActualPlayingListType("userlist");
+                DataService.setIsSearching(false);
             });
     }
 
@@ -15,14 +17,10 @@ let listController = ($scope, GoogleFileService, Factory) => {
     }
 
     $scope.$watch(() => {
-        return Factory.data.isUserLoggedIn;
+        return DataService.data.isUserLoggedIn;
     }, (newVal, oldVal) => {
         vm.isUserLoggedIn = newVal;
     });
 
     return vm;
 }
-
-listController.$inject = ['$scope', 'GoogleFileService', 'Factory'];
-
-export default listController;

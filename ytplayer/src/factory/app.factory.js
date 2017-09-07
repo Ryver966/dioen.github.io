@@ -1,4 +1,4 @@
-class Factory {
+class DataService {
     constructor($timeout) {
         this.$timeout = $timeout;
         this.data = {};
@@ -98,4 +98,4 @@ class Factory {
     }
 }
 
-export default Factory;
+export default DataService;

@@ -5,5 +5,5 @@ export default {
     controller: listController,
     controllerAs: 'listVM',
     template: require('./app.list.view.html'),
-    binding: "&"
+    bindings: '&'
 }

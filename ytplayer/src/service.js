@@ -2,13 +2,13 @@ let YouTube = require('youtube-node');
 
 export default class YTService {
 
-    constructor(Factory) {
-        this.Factory = Factory;
+    constructor(DataService) {
+        this.DataService = DataService;
     }
 
     getRelatedVideosById(videoId) {
         let youtube = new YouTube();
-        let _Factory = this.Factory;
+        let _DataService = this.DataService;
 
         let mapper = (element) => {
             let vidObj = {
@@ -27,7 +27,7 @@ export default class YTService {
         }
 
         let chooseVideo = (alreadyPlayedList, relatedVideosList) => {
-            _Factory.addAlreadyPlayedVideo(videoId);
+            _DataService.addAlreadyPlayedVideo(videoId);
             for (let i = 0; i < relatedVideosList.length; i++) {
                 // if (alreadyPlayedList.length > 9) {
                 //     alreadyPlayedList.shift();
@@ -51,7 +51,7 @@ export default class YTService {
                 } else {
                     let temp = result.items.filter(filter);
                     temp = temp.map(mapper);
-                    let temp1 = _Factory.getAlreadyPlayedVideos();
+                    let temp1 = _DataService.getAlreadyPlayedVideos();
                     let temp3;
 
                     temp3 = chooseVideo(temp1, temp);

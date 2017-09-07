@@ -9,6 +9,7 @@
                 {{vid.title}}
             </div>
             <div class="icon-list-add list-add-icon" ng-click="vidVM.addToUserList($index)" ng-show="vidVM.isUserLoggedIn"></div>
+            <div class="icon-cancel list-remove-icon" ng-click="vidVM.removeFromUserList($index)" ng-show="vidVM.isUserLoggedIn"></div>
         </div>
     </div>
 </div>

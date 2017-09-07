@@ -1,31 +1,31 @@
-vidCtrl.$inject = ['$scope', '$timeout', 'Factory', 'YTService', 'GoogleFileService'];
+vidCtrl.$inject = ['$scope', '$timeout', 'DataService', 'YTService', 'GoogleFileService'];
 
-export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFileService) {
+export default function vidCtrl($scope, $timeout, DataService, YTService, GoogleFileService) {
     let vm = this;
 
     vm.setActualVid = (index) => {
         let actualItem = vm.data[index];
 
-        Factory.setActualVid(actualItem);
+        DataService.setActualVid(actualItem);
         YTService.getRelatedVideosById(actualItem.id)
             .then((data1) => {
-                let isSearching = Factory.getIsSearching();
-                Factory.setRelatedToActualVid(data1);
+                let isSearching = DataService.getIsSearching();
+                DataService.setRelatedToActualVid(data1);
 
                 console.log(actualItem)
                 if (actualItem.user == 'yes') {
-                    Factory.setActualPlayingListType('userlist');
+                    DataService.setActualPlayingListType('userlist');
                 } else {
-                    Factory.setActualPlayingListType('searchlist');
+                    DataService.setActualPlayingListType('searchlist');
                 }
             });
 
-        Factory.clearAlreadyPlayedVideos();
+            DataService.clearAlreadyPlayedVideos();
     }
 
     $scope.$watch(
         function() {
-            return Factory.data.data;
+            return DataService.data.data;
         },
         function(newVal, oldVal) {
             if (newVal != undefined) {
@@ -36,16 +36,16 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
     vm.init = () => {
         YTService.getDataByString("")
             .then((data) => {
-                Factory.setActualPlayingListType("searchlist");
-                Factory.setIsSearching(true);
+                DataService.setActualPlayingListType("searchlist");
+                DataService.setIsSearching(true);
                 $timeout(vm.data = data);
             });
     }
 
     vm.addToUserList = (itemIndex) => {
-        let gapi = Factory.gapiUser;
-        let fileId = Factory.data.userSettingsFileId;
-        let userSettingsFileContent = Factory.data.userSettingsFileContent;
+        let gapi = DataService.gapiUser;
+        let fileId = DataService.data.userSettingsFileId;
+        let userSettingsFileContent = DataService.data.userSettingsFileContent;
 
         let videoObject = {
             id: vm.data[itemIndex].id,
@@ -55,20 +55,31 @@ export default function vidCtrl($scope, $timeout, Factory, YTService, GoogleFile
             user: 'yes'
         }
 
+        console.log(userSettingsFileContent)
         userSettingsFileContent.settings.items.push(videoObject);
 
-        Factory.addVideoToUserList(JSON.stringify(videoObject));
-        Factory.setUserSettingsFileContent(userSettingsFileContent);
+        DataService.addVideoToUserList(JSON.stringify(videoObject));
+        DataService.setUserSettingsFileContent(userSettingsFileContent);
 
-        GoogleFileService.updateFileOnDrive(gapi, JSON.stringify(Factory.data.userSettingsFileContent), fileId);
+        GoogleFileService.updateFileOnDrive(gapi, JSON.stringify(DataService.data.userSettingsFileContent), fileId);
 
         setTimeout(function() {
             GoogleFileService.loadFileFromDrive(gapi, fileId);
         }, 2000);
     }
 
+    vm.removeFromUserList = (index) => {
+        let gapi = DataService.gapiUser;
+        let fileId = DataService.data.userSettingsFileId;
+        let userSettingsFileContent = DataService.data.userSettingsFileContent;
+        let videosArray = userSettingsFileContent.settings.itmes;
+
+        DataService.setUserSettingsFileContent(videosArray.Splice(index, 1));        
+        GoogleFileService.updateFileOnDrive(gapi, JSON.stringify(DataService.data.userSettingsFileContent), fileId);
+    }
+
     $scope.$watch(() => {
-        return Factory.data.isUserLoggedIn;
+        return DataService.data.isUserLoggedIn;
     }, (newVal, oldVal) => {
         console.log("NOWA WAROSC!");
         vm.isUserLoggedIn = newVal;
