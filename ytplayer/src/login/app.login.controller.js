@@ -9,7 +9,7 @@ export default function loginController(OAuthService, YTService, DataService, Go
     }
 
 
-    let testFileContent = '{"settings": "items":[]}';
+    let testFileContent = '{"settings": {"items":[]}}';
 
     let onSuccess = (googleUser) => {
         DataService.setGoogleGapiUser(gapi);
@@ -36,8 +36,8 @@ export default function loginController(OAuthService, YTService, DataService, Go
                         .then((response) => {
                             DataService.setUserSettingsFileContent(response);
                         });
-                        DataService.setGoogleGapiUser(gapi);
-                        DataService.setIsUserLoggedIn(true);
+                    DataService.setGoogleGapiUser(gapi);
+                    DataService.setIsUserLoggedIn(true);
                 }
             });
     }

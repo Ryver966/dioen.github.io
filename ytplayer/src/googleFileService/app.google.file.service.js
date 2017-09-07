@@ -86,22 +86,28 @@ export default class GoogleFileService {
     }
 
     updateFileOnDrive(gapi, updatedFileContent, fileId) {
-        let multipartRequestBody = this.createFileWithJSONContent(updatedFileContent);
-        const boundary = '-------314159265358979323846';
+        return new Promise((resolve, reject) => {
+            let multipartRequestBody = this.createFileWithJSONContent(updatedFileContent);
+            console.log(multipartRequestBody);
+            console.log('from update file');
+            const boundary = '-------314159265358979323846';
 
-        let request = gapi.client.request({
-            'path': '/upload/drive/v2/files/' + fileId,
-            'method': 'PUT',
-            'params': {
-                'uploadType': 'multipart',
-                'alt': 'json'
-            },
-            'headers': {
-                'Content-Type': 'multipart/related; boundary="' + boundary + '"'
-            },
-            'body': multipartRequestBody
+            let request = gapi.client.request({
+                'path': '/upload/drive/v2/files/' + fileId,
+                'method': 'PUT',
+                'params': {
+                    'uploadType': 'multipart',
+                    'alt': 'json'
+                },
+                'headers': {
+                    'Content-Type': 'multipart/related; boundary="' + boundary + '"'
+                },
+                'body': multipartRequestBody
+            });
+
+            request.execute(() => {
+                resolve();
+            });
         });
-
-        request.execute();
     }
 }

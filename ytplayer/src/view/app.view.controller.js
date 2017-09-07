@@ -20,7 +20,7 @@ export default function vidCtrl($scope, $timeout, DataService, YTService, Google
                 }
             });
 
-            DataService.clearAlreadyPlayedVideos();
+        DataService.clearAlreadyPlayedVideos();
     }
 
     $scope.$watch(
@@ -58,24 +58,32 @@ export default function vidCtrl($scope, $timeout, DataService, YTService, Google
         console.log(userSettingsFileContent)
         userSettingsFileContent.settings.items.push(videoObject);
 
-        DataService.addVideoToUserList(JSON.stringify(videoObject));
+        //DataService.addVideoToUserList(JSON.stringify(videoObject));
         DataService.setUserSettingsFileContent(userSettingsFileContent);
-
-        GoogleFileService.updateFileOnDrive(gapi, JSON.stringify(DataService.data.userSettingsFileContent), fileId);
-
-        setTimeout(function() {
+        console.log(JSON.stringify(DataService.data.userSettingsFileContent));
+        GoogleFileService.updateFileOnDrive(gapi, JSON.stringify(DataService.data.userSettingsFileContent), fileId)
+        then(() => {
             GoogleFileService.loadFileFromDrive(gapi, fileId);
-        }, 2000);
+        });
     }
 
     vm.removeFromUserList = (index) => {
         let gapi = DataService.gapiUser;
         let fileId = DataService.data.userSettingsFileId;
         let userSettingsFileContent = DataService.data.userSettingsFileContent;
-        let videosArray = userSettingsFileContent.settings.itmes;
-
-        DataService.setUserSettingsFileContent(videosArray.Splice(index, 1));        
-        GoogleFileService.updateFileOnDrive(gapi, JSON.stringify(DataService.data.userSettingsFileContent), fileId);
+        let videosArray = userSettingsFileContent.settings['items'];
+        console.log(videosArray);
+        videosArray.splice(index, 1);
+        userSettingsFileContent.settings['items'] = videosArray;
+        DataService.setUserSettingsFileContent(userSettingsFileContent);
+        //console.log(JSON.stringify(DataService.data.userSettingsFileContent));
+        GoogleFileService.updateFileOnDrive(gapi, JSON.stringify(DataService.data.userSettingsFileContent), fileId)
+            .then(() => {
+                GoogleFileService.loadFileFromDrive(DataService.gapiUser, DataService.data.userSettingsFileId)
+                    .then((response) => {
+                        DataService.setFactoryData(response.settings.items);
+                    });
+            });
     }
 
     $scope.$watch(() => {
