@@ -12,7 +12,6 @@ export default function vidCtrl($scope, $timeout, DataService, YTService, Google
                 let isSearching = DataService.getIsSearching();
                 DataService.setRelatedToActualVid(data1);
 
-                console.log(actualItem)
                 if (actualItem.user == 'yes') {
                     DataService.setActualPlayingListType('userlist');
                 } else {
