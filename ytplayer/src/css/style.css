@@ -10,6 +10,11 @@ body {
     bottom: 20px;
     width: 400px;
     height: 225px;
+    display: none;
+}
+
+.float-actual-video.active {
+    display: block;
 }
 
 .float-actual-video>iframe {
@@ -197,6 +202,23 @@ button {
     height: 50px;
     width: 240px;
     background: #dedede !important;
+}
+
+.replay-icon {
+    position: absolute;
+    bottom: 40px;
+    right: 10px;
+    font-size: 30px;
+    color: #999999;
+    z-index: 10;
+}
+
+.replay-icon:hover {
+    color: #f33;
+}
+
+.replay-icon.active {
+    color: #f33;
 }
 
 .video-card-wrapper {
