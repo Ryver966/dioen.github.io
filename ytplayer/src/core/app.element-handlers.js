@@ -1,12 +1,12 @@
 class EventHandlersService {
-    constructor(){}
+    constructor() {}
 
     setActiveClass(event) {
-            event.className = event.className + ' active';
+        event.className = event.className + ' active';
     }
-    
+
     removeActiveClass(event) {
-        event.className = event.className.replace(' active', '');        
+        event.className = event.className.replace(' active', '');
     }
 }
 
