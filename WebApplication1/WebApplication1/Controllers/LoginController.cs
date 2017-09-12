@@ -18,12 +18,12 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Index(UserModel User)
         {
-            using (UserDbContext UserDB = new UserDbContext())
-            {
+            var UserDB = new Model1();
+
                 if (ModelState.IsValid)
                 {
                     var cos = User;
-                    var _User = UserDB.Users.Where(record => record.Mail.Equals(User.Mail) && record.Password.Equals(User.Password));
+                    var _User = UserDB.Users.Where(record => record.Mail.Equals(User.Mail) && record.Password.Equals(User.Password)).FirstOrDefault();
                     var asd = _User;
                     var cc = asd;
                     if (_User != null)
@@ -31,7 +31,6 @@ namespace WebApplication1.Controllers
                         return View();
                     }
                 }
-            }
 
             return View();
         }
