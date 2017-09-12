@@ -4,6 +4,7 @@ import YTService from './service';
 import OAuthService from './OAuthService/app.auth';
 import DataService from './factory/app.factory';
 import GoogleFileService from './googleFileService/app.google.file.service';
+import EventHandlersService from './core/app.element-handlers'
 // import routes from './routes';
 // import ui from 'angular-ui-router';
 
@@ -21,6 +22,7 @@ let app = angular.module("myApp", [])
     .service("OAuthService", OAuthService)
     .service("GoogleFileService", GoogleFileService)
     .service('DataService', DataService)
+    .service('EventHandlersService', EventHandlersService)
     // .config(routes)
     .component('search', searchComponent)
     .component('view', viewComponent)

@@ -63,7 +63,7 @@ class DataService {
     }
 
     setActualVid(src) {
-        this.data.actualVid = "null";
+        this.data.actualVid = 'null';
         this.$timeout(() => {
             this.data.actualVid = src;
         });
