@@ -6,8 +6,12 @@ using System.Web;
 
 namespace WebApplication1.Models
 {
-    public class UserDbContext : DbContext
+    public class UserContext : DbContext
     {
+        public UserContext() : base("UserContext")
+        {
+
+        }
         public DbSet<User> Users { get; set; }
     }
 }

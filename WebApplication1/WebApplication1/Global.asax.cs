@@ -18,7 +18,7 @@ namespace WebApplication1
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer<UserDbContext>(new DropCreateDatabaseIfModelChanges<UserDbContext>());
+            //Database.SetInitializer<UserContext>(new DropCreateDatabaseIfModelChanges<UserContext>());
         }
     }
 }

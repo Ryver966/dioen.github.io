@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Index(User User)
         {
-            var UserDB = new UserDbContext();
+            var UserDB = new UserContext();
 
                 if (ModelState.IsValid)
                 {
