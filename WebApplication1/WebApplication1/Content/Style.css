@@ -1,3 +1,33 @@
 ﻿.login-form {
     margin-top: 10%;
 }
+
+.dashboard-user-name {
+    font-family: 'Arial Rounded MT';
+    font-size: 18px;
+    color: #5d5d5d;
+    margin: 10px 0;
+}
+
+.currency-table {
+    font-family: 'Bodoni MT';
+    text-align: center;
+    color: #888;
+    border-radius: 10px 10px 10px 10px;
+    background-color: #f8f8f8;
+}
+
+.currency-cell {
+    display: inline;
+}
+
+.currency-head {
+    font-family: 'Bodoni MT';
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.user-dashboard-wrapper {
+    margin: 50px 50px;
+}
+

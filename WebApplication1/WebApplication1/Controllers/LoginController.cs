@@ -35,7 +35,7 @@ namespace WebApplication1.Controllers
                     var user = UserRepository.GetUser(User.Mail, User.Password);
                     LoginService.Login(user);
 
-                    return RedirectToAction("Index", "Dashboard", null);
+                    return RedirectToAction("Index", "Dashboard", user);
                 }
 
             return View();
