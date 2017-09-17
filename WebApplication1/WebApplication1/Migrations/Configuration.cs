@@ -21,7 +21,7 @@ namespace WebApplication1.Migrations
             //
             context.Users.AddOrUpdate(
               p => p.ID,
-              new Models.User { ID = 1, Mail = "test1@test1.pl", Password = "test", UserName = "testUser", WalletTotal = 523.23F }
+              new Models.User { ID = 1, Mail = "test1@test1.pl", Password = "test", UserName = "testUser", WalletTotal = 523.23F,  UserRole = "User" }
             );
             //
         }

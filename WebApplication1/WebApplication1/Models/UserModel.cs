@@ -17,5 +17,6 @@ namespace WebApplication1.Models
         public string Mail { get; set; }
         public string Password { get; set; }
         public float WalletTotal { get; set; }
+        public string UserRole { get; set; }
     }
 }

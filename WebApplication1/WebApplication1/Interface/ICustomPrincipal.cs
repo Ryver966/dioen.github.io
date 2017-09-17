@@ -9,7 +9,7 @@ namespace WebApplication1.Interface
 {
     interface ICustomPrincipal : IPrincipal
     {
-        int ID { get; set; }
-        string UserName { get; set; }
+        //int ID { get; set; }
+        //string UserName { get; set; }
     }
 }

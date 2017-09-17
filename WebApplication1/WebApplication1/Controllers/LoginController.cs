@@ -5,16 +5,19 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Interface;
 using WebApplication1.Models;
+using WebApplication1.Service;
 
 namespace WebApplication1.Controllers
 {
     public class LoginController : Controller
     {
         private IUserRepository UserRepository;
+        private LoginService LoginService;
 
         public LoginController()
         {
             this.UserRepository = new UserRepository(new UserContext());
+            this.LoginService = new LoginService();
         }
         // GET: Login
         public ActionResult Index()
@@ -29,19 +32,10 @@ namespace WebApplication1.Controllers
 
                 if (ModelState.IsValid)
                 {
-                var user = UserRepository.GetUser(User.Mail, User.Password);
-                var cos = user;
+                    var user = UserRepository.GetUser(User.Mail, User.Password);
+                    LoginService.Login(user);
 
-
-
-                    //var cos = User;
-                    //var _User = UserDB.Users.Where(record => record.Mail.Equals(User.Mail) && record.Password.Equals(User.Password)).FirstOrDefault();
-                    //var asd = _User;
-                    //var cc = asd;
-                    //if (_User != null)
-                    //{
-                    //    return View();
-                    //}
+                    return RedirectToAction("Index", "Dashboard", null);
                 }
 
             return View();

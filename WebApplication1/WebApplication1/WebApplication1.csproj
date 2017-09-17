@@ -150,6 +150,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -160,6 +161,10 @@
     <Compile Include="Migrations\201709131857253_Initial.cs" />
     <Compile Include="Migrations\201709131857253_Initial.Designer.cs">
       <DependentUpon>201709131857253_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709171333064_update.cs" />
+    <Compile Include="Migrations\201709171333064_update.Designer.cs">
+      <DependentUpon>201709171333064_update.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Class1.cs" />
@@ -214,10 +219,14 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201709131857253_Initial.resx">
       <DependentUpon>201709131857253_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709171333064_update.resx">
+      <DependentUpon>201709171333064_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

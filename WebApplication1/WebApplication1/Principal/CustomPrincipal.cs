@@ -19,5 +19,6 @@ namespace WebApplication1.Principal
 
         public int ID { get; set; }
         public string UserName { get; set; }
+        public string UserRole { get; set; }
     }
 }
