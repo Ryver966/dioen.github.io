@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
             this.UserContext = new UserContext();
         }
         // GET: Dashboard
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         public ActionResult Index(User User)
         {
             User user = UserContext.Users.Where(model => model.Mail.Equals(User.Mail)).FirstOrDefault();

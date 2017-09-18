@@ -24,18 +24,14 @@ namespace WebApplication1.Service
         {
                 if (User != null)
                 {
-                //CustomPrincipal serializeModel = new CustomPrincipal(user.Mail);
-                //serializeModel.ID = user.ID;
-                //serializeModel.UserName = user.UserName;
-                //serializeModel.UserRole = user.UserRole;
+                User serializeModel = new User();
+                serializeModel.ID = User.ID;
+                serializeModel.UserName = User.UserName;
+                serializeModel.UserRole = User.UserRole;
 
-                //JavaScriptSerializer serializer = new JavaScriptSerializer();
+                var serializer = new JavaScriptSerializer();
 
-                //string userData = serializer.Serialize(serializeModel);
-
-                string roles = "Admin,User";
-
-                    string userData = String.Join("|", roles);
+                var userData = serializer.Serialize(serializeModel);
 
                     FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                              1,

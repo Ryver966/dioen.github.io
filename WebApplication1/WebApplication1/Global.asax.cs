@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using WebApplication1.Models;
+using WebApplication1.Principal;
 
 namespace WebApplication1
 {
@@ -23,24 +25,38 @@ namespace WebApplication1
             //Database.SetInitializer<UserContext>(new DropCreateDatabaseIfModelChanges<UserContext>());
         }
 
-        public override void Init()
+        protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-            base.AuthenticateRequest += OnAfterAuthenticateRequest;
-        }
+            HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
 
-        private void OnAfterAuthenticateRequest(object sender, EventArgs eventArgs)
-        {
-            if (HttpContext.Current.User != null)
+            if (authCookie == null || authCookie.Value == "")
+                return;
+
+            FormsAuthenticationTicket authTicket;
+
+            try
             {
-                if (HttpContext.Current.User.Identity.IsAuthenticated)
-                {
-                    var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-                    var decodedTicket = FormsAuthentication.Decrypt(cookie.Value);
-                    var roles = decodedTicket.UserData.Split(new[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+                authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+            }
+            catch
+            {
+                return;
+            }
 
-                    var principal = new GenericPrincipal(HttpContext.Current.User.Identity, roles);
-                    HttpContext.Current.User = principal;
-                }
+            var userData = authTicket.UserData;
+
+            var loggedUser = new GenericIdentity(authTicket.Name);
+
+            var userDataViewModel = JsonConvert.DeserializeObject<User>(userData);
+
+            //if (userDataViewModel.ProfilePhotoPath != null)
+            //{
+            //    loggedUser.AddClaim(new Claim("ProfilePhotoPath", userDataViewModel.ProfilePhotoPath));
+            //}
+
+            if (Context.User == null)
+            {
+                Context.User = new GenericPrincipal(loggedUser, userDataViewModel.UserRole.Split(new string[] { "," }, StringSplitOptions.None));
             }
         }
     }
