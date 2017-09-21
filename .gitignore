@@ -4,3 +4,6 @@ packages
 bin
 obj
 .vs
+i18n
+angular-*
+angular*

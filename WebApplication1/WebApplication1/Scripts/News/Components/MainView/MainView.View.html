@@ -1,5 +1,10 @@
-﻿<div class="articles-wrapper" ng-include="viewVM.loadNews()">
-    <div ng-repeat="news in viewVM.newsData">
-
+﻿<div class="news-wrapper" ng-init="viewVM.loadNews()">
+    <div class="news-card" ng-repeat="news in viewVM.newsData">
+        <a href="{{news.url}}" target="_blank">
+            <div class="news-img-wrapper">
+                <img class="news-img-thumbnail" src="{{news.image.thumbnail.contentUrl}}" />
+            </div>
+            <div class="news-description">{{news.name}}</div>
+        </a>
     </div>
 </div>

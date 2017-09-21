@@ -1,8 +1,10 @@
-﻿//import angular from '../angular';
+﻿import NewsService from './Services/NewsService.js';
+import MainView from './Components/MainView/MainView.js';
 
-//import NewsService from './Services/NewsService.js';
-//import MainView from './Components/MainView/MainView.js';
+let app = angular.module("newsApp", []);
 
-//let newsApp = angular.module('newsApp', [])
-    //.service('NewsService', NewsService)
-    //.component('mainView', MainView);
+app.service('NewsService', NewsService)
+    .component('mainView', MainView)
+    .config(function ($sceProvider) {
+        $sceProvider.enabled(false);
+    });

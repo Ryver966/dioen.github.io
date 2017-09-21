@@ -1,14 +1,14 @@
 ﻿let MainViewController = (NewsService) => {
-    vm = this;
-
-    vm.NewsService = NewsService;
+    let vm = this;
 
     vm.loadNews = () => {
-        vm.NewsService.getNews().then((response) => {
+        NewsService.getNews().then((response) => {
             console.log(response);
-            vm.newsData = response;
+            vm.newsData = response.data.value;
         });
     }
+
+    return vm;
 }
 
 MainViewController.$inject = ['NewsService'];

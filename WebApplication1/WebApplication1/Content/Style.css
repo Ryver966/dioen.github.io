@@ -31,3 +31,24 @@
     margin: 50px 50px;
 }
 
+.news-wrapper {
+    width: 100%;
+    background: #d3d3a3;
+}
+
+.news-card {
+    width: 100%;
+    background: #d3d3d3;
+}
+
+.news-img-wrapper {
+    width: 100px;
+    height:auto;
+    margin: 15px 25px;
+    display: inline;
+}
+
+.news-description {
+    display:inline;
+}
+

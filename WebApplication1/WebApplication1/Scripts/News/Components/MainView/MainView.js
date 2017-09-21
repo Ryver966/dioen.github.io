@@ -1,9 +1,9 @@
-﻿import MainViewController from './MainView.Controller';
+﻿import MainViewController from './MainView.Controller.js';
 
 export default {
     restrict: 'E',
     controller: MainViewController,
     controllerAs: 'viewVM',
-    template: require('MainView.View.html'),
+    templateUrl: '/Scripts/News/Components/MainView/MainView.View.html',
     bindings: '&'
 }
