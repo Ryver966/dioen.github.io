@@ -20,8 +20,10 @@
 <div class="container user-dashboard-main">
     <div class="row user-dashboard-wrapper">
         <div class="col-md-9">
-            <div class="row dashboard-user-name">
-                @Model.UserName
+            <div class="dashboard-user-name">
+                <div>@Model.UserName</div>
+                <h4 class="user-wallet-total">Wallet total:</h4>
+                <h3 class="user-wallet-total">@Model.WalletTotal $</h3>
             </div>
         </div>
         <div class="col-md-3">
@@ -47,10 +49,11 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div ng-app="newsApp">
-                <main-view></main-view>
-            </div>
+
+    </div>
+    <div class="row">
+        <div ng-app="newsApp">
+            <main-view></main-view>
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
-﻿<div class="news-wrapper" ng-init="viewVM.loadNews()">
-    <div class="news-card" ng-repeat="news in viewVM.newsData">
+﻿<div class="news-wrapper" ng-init="viewVM.init()">
+    <div class="news-card col-md-6" ng-repeat="news in viewVM.newsData">
         <a href="{{news.url}}" target="_blank">
             <div class="news-img-wrapper">
                 <img class="news-img-thumbnail" src="{{news.image.thumbnail.contentUrl}}" />
@@ -7,4 +7,5 @@
             <div class="news-description">{{news.name}}</div>
         </a>
     </div>
+    <button class="btn btn-info" ng-click="viewVM.loadMoreNews()">Load more...</button>
 </div>

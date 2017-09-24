@@ -1,16 +1,30 @@
-﻿let MainViewController = (NewsService) => {
+﻿let MainViewController = (NewsService, PaginatorService) => {
     let vm = this;
+    vm.counter = 1;
 
     vm.loadNews = () => {
-        NewsService.getNews().then((response) => {
+        return NewsService.getNews().then((response) => {
             console.log(response);
-            vm.newsData = response.data.value;
+            vm.newsDataContainer = response.data.value;
         });
+    }
+
+    vm.loadMoreNews = () => {
+        vm.newsData = PaginatorService.loadMoreNews(vm.newsDataContainer, vm.counter);
+
+        vm.counter++;
+    }
+
+    vm.init = () => {
+        vm.loadNews()
+            .then(() => {
+                vm.loadMoreNews();
+            });
     }
 
     return vm;
 }
 
-MainViewController.$inject = ['NewsService'];
+MainViewController.$inject = ['NewsService', 'PaginatorService'];
 
 export default MainViewController;
