@@ -10,12 +10,10 @@
     <div class="col-md-4 form-signin"></div>
     @using (@Html.BeginForm(null, null, FormMethod.Post, new { @class = "col-md-4 login-form" }))
     {
-        {
             @Html.TextBoxFor(model => model.Mail, "User password: ", new { @class = "form-control login-input", @placeholder = "Email address", @type = "email" })
             @Html.PasswordFor(model => model.Password, new { @class = "form-control login-input", @placeholder = "Password" })
 
             <button class="btn btn-lg btn-primary login-button" type="submit">Login</button>
-        }
     }
     <div class="col-md-4"></div>
 </div>

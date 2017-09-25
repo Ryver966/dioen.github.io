@@ -10,5 +10,6 @@ namespace WebApplication1.Interface
     interface IUserRepository : IDisposable
     {
         User GetUser(string Mail, string Password);
+        void UpdateUser(User User);
     }
 }

@@ -1,0 +1,17 @@
+﻿@model WebApplication1.Models.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="login-site-background-gif">
+</div>
+<div class="login-site-wrapper">
+    <div class="col-md-4 form-signin"></div>
+    @using (@Html.BeginForm(null, null, FormMethod.Post, new { @class = "col-md-4 login-form" }))
+    {
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control login-input", @placeholder = "New password" })
+        <button class="btn btn-lg btn-primary login-button" type="submit">Change password</button>
+    }
+    <div class="col-md-4"></div>
+</div>

@@ -4,9 +4,7 @@
     ViewBag.Title = "Home Page";
 }
 
-
 <script src="~/Scripts/angular.js"></script>
-
 <script type="module" src="~/Scripts/News/main.js">
 </script>
 <script type="module" src="~/Scripts/News/Components/MainView/MainView.Controller.js">
@@ -19,20 +17,27 @@
 
 <div class="container user-dashboard-main">
     <div class="row user-dashboard-wrapper">
-        <div class="col-md-9">
-            <div class="dashboard-user-name">
-                <div>@Model.UserName</div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div>
+                <div class="dashboard-user-name">@Model.UserName</div>
+                <a href="~/Dashboard/Edit">
+                    <span class="icon-edit user-edit-icon"></span>
+                </a>
+            </div>
+            <div>
                 <h4 class="user-wallet-total">Wallet total:</h4>
                 <h3 class="user-wallet-total">@Model.WalletTotal $</h3>
             </div>
         </div>
+
         <div class="col-md-3">
             <div class="currency-table">
                 <div class="currency-head">
                     Actual currency
                 </div>
                 <div class="form-group">
-                    <label>dollar: </label>
+                    <label>USD: </label>
                     <div class="currency-cell" id="currency-USD"></div>
                 </div>
                 <div class="form-group">
@@ -40,16 +45,16 @@
                     <div class="currency-cell" id="currency-GBP"></div>
                 </div>
                 <div class="form-group">
-                    <label>Fr: </label>
+                    <label>CHF: </label>
                     <div class="currency-cell" id="currency-CHF"></div>
                 </div>
                 <div class="form-group">
-                    <label>Euro: </label>
+                    <label>EUR: </label>
                     <div class="currency-cell" id="currency-EUR"></div>
                 </div>
             </div>
         </div>
-
+        <div class="col-md-3"></div>
     </div>
     <div class="row">
         <div ng-app="newsApp">

@@ -11,6 +11,11 @@
     font-size: 18px;
     color: #5d5d5d;
     margin: 10px 0;
+    display: inline;
+}
+
+.user-edit-icon {
+    cursor: pointer;
 }
 
 .currency-table {

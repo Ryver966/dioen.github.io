@@ -20,6 +20,12 @@ namespace WebApplication1.Models
             return GetAllUsers().Where(user => user.Mail.Equals(Mail) && user.Password.Equals(Password)).FirstOrDefault();
         }
 
+        public void UpdateUser(User User)
+        {
+            _context.Entry(User).State = System.Data.Entity.EntityState.Modified;
+            _context.SaveChanges();
+        } 
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);
