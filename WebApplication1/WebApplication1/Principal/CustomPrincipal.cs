@@ -7,18 +7,13 @@ using WebApplication1.Interface;
 
 namespace WebApplication1.Principal
 {
-    public class CustomPrincipal : ICustomPrincipal
+    public class CustomPrincipal : GenericPrincipal
     {
-        public IIdentity Identity { get; private set; }
-        public bool IsInRole(string role) { return false; }
-
-        public CustomPrincipal(string email)
+        public CustomPrincipal(IIdentity identity, string[] roles, string UserName) : base(identity, roles)
         {
-            this.Identity = new GenericIdentity(email);
+            this.UserName = UserName;
         }
 
-        public int ID { get; set; }
         public string UserName { get; set; }
-        public string UserRole { get; set; }
     }
 }

@@ -7,10 +7,10 @@
 
         ServiceModule.currencyCost()
             .then(function (response) {
-                usdElement.innerHTML = response.USD;
-                gbpElement.innerHTML = response.GBP;
-                chfElement.innerHTML = response.CHF;
-                eurElement.innerHTML = response.EUR;
+                usdElement.innerHTML = response.USD + ' zł';
+                gbpElement.innerHTML = response.GBP + ' zł';
+                chfElement.innerHTML = response.CHF + ' zł';
+                eurElement.innerHTML = response.EUR + ' zł';
             });
     }
 

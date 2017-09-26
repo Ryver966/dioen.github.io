@@ -1,5 +1,6 @@
 ﻿body {
     padding: 0 !important;
+    background: #ECEFF1;
 }
 
 .login-form {
@@ -23,7 +24,7 @@
     text-align: center;
     color: #888;
     border-radius: 10px 10px 10px 10px;
-    background-color: #f8f8f8;
+    background: #e0e0e0;
 }
 
 .currency-cell {
@@ -44,11 +45,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 30px 0;
 }
 
 .news-card {
-    background: #F8F8F8;
-    margin-top: 20px;
+    background: #e0e0e0;
+    margin-bottom: 20px;
+    border-radius: 10px;
 }
 
     .news-card:hover {

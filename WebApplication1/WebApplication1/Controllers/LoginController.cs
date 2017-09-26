@@ -16,7 +16,7 @@ namespace WebApplication1.Controllers
 
         public LoginController()
         {
-            this.UserRepository = new UserRepository(new UserContext());
+            this.UserRepository = new UserRepository();
             this.LoginService = new LoginService();
         }
         // GET: Login
@@ -28,17 +28,17 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Index(User User)
         {
-            var UserDB = new UserContext();
-
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                var user = UserRepository.GetUser(User.Mail, User.Password);
+                if (user != null)
                 {
-                    var user = UserRepository.GetUser(User.Mail, User.Password);
                     LoginService.Login(user);
 
                     return RedirectToAction("Index", "Dashboard", user);
                 }
-
-            return View();
+            }
+            return View(User);
         }
     }
 }

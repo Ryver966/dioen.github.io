@@ -10,9 +10,9 @@ namespace WebApplication1.Models
     {
         private UserContext _context;
 
-        public UserRepository(UserContext context)
+        public UserRepository()
         {
-            this._context = context;
+            this._context = new UserContext();
         }
 
         public User GetUser(string Mail, string Password)
@@ -20,11 +20,19 @@ namespace WebApplication1.Models
             return GetAllUsers().Where(user => user.Mail.Equals(Mail) && user.Password.Equals(Password)).FirstOrDefault();
         }
 
+        public User GetUserByName(string Mail)
+        {
+            return GetAllUsers().Where(model => model.Mail.Equals(Mail)).FirstOrDefault();
+        }
+
         public void UpdateUser(User User)
         {
-            _context.Entry(User).State = System.Data.Entity.EntityState.Modified;
+            User _User = GetUserByName(User.UserName);
+
+            _User.Password = User.Password;
+            _context.Entry(_User).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();
-        } 
+        }
 
         public void Dispose()
         {
@@ -33,7 +41,7 @@ namespace WebApplication1.Models
 
         private IEnumerable<User> GetAllUsers()
         {
-            return _context.Users;
+            return this._context.Users;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace WebApplication1.Service
 
         public LoginService()
         {
-            this.UserRepository = new UserRepository(new UserContext());
+            this.UserRepository = new UserRepository();
         }
 
         public void Login(User User)

@@ -1,7 +1,7 @@
 ﻿var ServiceModule = (function () {
 
     var calculateToPLN = function (currency) {
-        return 1 / currency;
+        return (1 / currency).toFixed(2);
     }
 
     var returnCurrencyCost = function () {
