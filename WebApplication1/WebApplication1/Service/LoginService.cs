@@ -6,20 +6,12 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using WebApplication1.Interface;
 using WebApplication1.Models;
-using WebApplication1.Principal;
 
 
 namespace WebApplication1.Service
 {
     public class LoginService
     {
-        private IUserRepository UserRepository;
-
-        public LoginService()
-        {
-            this.UserRepository = new UserRepository();
-        }
-
         public void Login(User User)
         {
                 if (User != null)

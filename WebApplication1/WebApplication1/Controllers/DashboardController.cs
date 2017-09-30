@@ -6,22 +6,17 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
-using WebApplication1.Principal;
 using WebApplication1.Service;
 
 namespace WebApplication1.Controllers
 {
     public class DashboardController : Controller
     {
-        //private UserContext _UserContext;
-        //private UserRepository _UserRepository;
         private UserService _UserService;
 
 
         public DashboardController()
         {
-            //this.UserContext = new UserContext();
-            //this._UserRepository = new UserRepository(new UserContext());
             this._UserService = new UserService();
         }
         // GET: Dashboard
