@@ -7,7 +7,7 @@ class VideoListService {
     }
 
     fetchList(query) {
-        let youtube = new YouTube();
+        const youtube = new YouTube();
 
         return new Promise((resolve, reject) => {
             youtube.setKey('AIzaSyCG4TkK-ABOZU0KisXMiFWhDm7e4S9v3QM');
